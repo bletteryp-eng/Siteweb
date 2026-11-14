@@ -1,1488 +1,629 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Électricien & Domotique Haut de Gamme - Excellence Artisanale">
-  <title>Lumière & Contrôle | Artisan d'Excellence</title>
+  <meta name="description" content="VOLT &amp; CO — Électricité Générale &amp; Domotique à Luxembourg. Installation, mise aux normes et dépannage électrique. Devis sous 24h.">
+  <title>VOLT &amp; CO — Électricité Générale &amp; Domotique Luxembourg</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            'apple-white': '#FFFFFF',
-            'apple-gray': '#F5F5F7',
-            'apple-black': '#111111',
-            'electric-yellow': '#FFD60A',
-            'electric-yellow-dim': '#E6C009',
+            carbon: '#0A0A0A',
+            'carbon-light': '#F5F5F7',
+            slate: '#52525B',
+            'border-subtle': 'rgba(0,0,0,0.08)',
+            yellow: '#FFD60A',
+            yellow-dim: '#E6C00A',
+            white: '#FFFFFF',
           },
           fontFamily: {
-            'inter': ['Inter', 'sans-serif'],
-          },
-          animation: {
-            'fade-up': 'fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-            'fade-in': 'fadeIn 0.6s ease-out forwards',
-            'scale-in': 'scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-            'slide-up': 'slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-            'counter': 'counter 2s ease-out forwards',
-            'shimmer': 'shimmer 2s infinite',
-          },
-          keyframes: {
-            fadeUp: {
-              '0%': { opacity: '0', transform: 'translateY(40px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            fadeIn: {
-              '0%': { opacity: '0' },
-              '100%': { opacity: '1' },
-            },
-            scaleIn: {
-              '0%': { opacity: '0', transform: 'scale(0.95)' },
-              '100%': { opacity: '1', transform: 'scale(1)' },
-            },
-            slideUp: {
-              '0%': { opacity: '0', transform: 'translateY(20px)' },
-              '100%': { opacity: '1', transform: 'translateY(0)' },
-            },
-            counter: {
-              '0%': { transform: 'translateY(100%)', opacity: '0' },
-              '100%': { transform: 'translateY(0)', opacity: '1' },
-            },
-            shimmer: {
-              '0%': { backgroundPosition: '-200% 0' },
-              '100%': { backgroundPosition: '200% 0' },
-            },
+            jakarta: ['Plus Jakarta Sans', 'sans-serif'],
           },
         },
       },
     }
   </script>
   <style>
-    * { font-family: 'Inter', sans-serif; }
-    html { scroll-behavior: smooth; }
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-    .glass-nav {
-      background: rgba(255, 255, 255, 0.72);
-      backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-    }
-    .glass-nav.scrolled {
-      background: rgba(255, 255, 255, 0.92);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
-    }
-    .bento-card {
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.06);
-      border-radius: 24px;
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      overflow: hidden;
-    }
-    .bento-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 24px;
-      border: 2px solid transparent;
-      transition: border-color 0.3s ease;
-      pointer-events: none;
-    }
-    .bento-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 32px 64px -12px rgba(0, 0, 0, 0.08), 0 16px 32px -8px rgba(0, 0, 0, 0.04);
-      border-color: transparent;
-    }
-    .bento-card:hover::before {
-      border-color: #FFD60A;
-    }
-    .counter-digit {
-      display: inline-block;
-      line-height: 1;
-      overflow: hidden;
-    }
-    .counter-digit span {
-      display: block;
-      animation: counter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      animation-delay: calc(var(--i) * 0.05s);
-    }
-    .filter-btn {
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .filter-btn.active {
-      background: #111111;
-      color: #FFFFFF;
-    }
-    .filter-btn:not(.active):hover {
-      background: #F5F5F7;
-      border-color: #111111;
-    }
-    .gallery-item {
-      opacity: 0;
-      transform: scale(0.95);
-      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .gallery-item.visible {
-      opacity: 1;
-      transform: scale(1);
-    }
-    .gallery-item.hidden {
-      display: none;
-    }
-    .step-indicator {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 2px solid #E5E5E7;
-      background: #FFFFFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 600;
-      font-size: 0.875rem;
-      color: #8E8E93;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      position: relative;
-      z-index: 1;
-    }
-    .step-indicator.active {
-      border-color: #FFD60A;
-      background: #FFD60A;
-      color: #111111;
-    }
-    .step-indicator.completed {
-      border-color: #FFD60A;
-      background: #111111;
-      color: #FFD60A;
-    }
-    .step-line {
-      flex: 1;
-      height: 2px;
-      background: #E5E5E7;
-      transition: all 0.3s ease;
-      margin-top: 19px;
-    }
-    .step-line.completed {
-      background: #FFD60A;
-    }
-    .form-input {
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      border-radius: 16px;
-      padding: 1rem 1.25rem;
-      font-size: 1rem;
-      color: #111111;
-      transition: all 0.3s ease;
-      width: 100%;
-    }
-    .form-input:focus {
-      outline: none;
-      border-color: #FFD60A;
-      box-shadow: 0 0 0 4px rgba(255, 214, 10, 0.15);
-    }
-    .form-input::placeholder { color: #8E8E93; }
-    .form-label {
-      display: block;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: #111111;
-      margin-bottom: 0.5rem;
-    }
-    .btn-primary {
-      background: #111111;
-      color: #FFFFFF;
-      padding: 1rem 2rem;
-      border-radius: 100px;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-      border: none;
-      cursor: pointer;
-    }
-    .btn-primary:hover {
-      background: #000000;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px -8px rgba(0, 0, 0, 0.15);
-    }
-    .btn-primary:active { transform: translateY(0); }
+    * { font-family: 'Plus Jakarta Sans', sans-serif; }
+    html { -webkit-text-size-adjust: 100%; }
+    body { overflow-x: hidden; }
+    img, video, canvas, svg { max-width: 100%; height: auto; display: block; }
+    ::selection { background: #FFD60A; color: #0A0A0A; }
+    .bg-carbon { background-color: #0A0A0A; }
+    .bg-carbon-light { background-color: #F5F5F7; }
+    .text-carbon { color: #0A0A0A; }
+    .text-slate { color: #52525B; }
+    .border-subtle { border-color: rgba(0,0,0,0.08); }
+    .letter-tight { letter-spacing: -0.03em; }
+    .tabular-nums { font-variant-numeric: tabular-nums; }
+
     .btn-yellow {
       background: #FFD60A;
-      color: #111111;
-      padding: 1rem 2rem;
-      border-radius: 100px;
+      color: #0A0A0A;
       font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       border: none;
-      cursor: pointer;
-    }
-    .btn-yellow:hover {
-      background: #E6C009;
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px -8px rgba(255, 214, 10, 0.4);
-    }
-    .btn-yellow:active { transform: translateY(0); }
-    .btn-ghost {
-      background: transparent;
-      color: #111111;
-      padding: 1rem 2rem;
       border-radius: 100px;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-      border: 1px solid rgba(0, 0, 0, 0.1);
+      font-family: inherit;
+      transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
     }
-    .btn-ghost:hover {
-      background: #F5F5F7;
-      border-color: #111111;
+    .btn-yellow:hover { background: #E6C00A; transform: translateY(-1px); box-shadow: 0 8px 24px -4px rgba(255,214,10,0.35); }
+    .btn-yellow:active { transform: translateY(0); }
+    .btn-black {
+      background: #0A0A0A;
+      color: #FFFFFF;
+      font-weight: 600;
+      border-radius: 100px;
+      font-family: inherit;
+      transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
     }
-    .comparison-slider {
-      position: relative;
-      overflow: hidden;
-      border-radius: 24px;
-      background: #000;
-    }
-    .comparison-before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 50%;
-      height: 100%;
-      overflow: hidden;
-      pointer-events: none;
-    }
-    .comparison-handle {
-      position: absolute;
-      top: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 4px;
-      height: 100%;
-      background: #FFD60A;
-      pointer-events: none;
-      z-index: 10;
-    }
-    .comparison-handle::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 48px;
-      height: 48px;
-      background: #FFFFFF;
-      border-radius: 50%;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .comparison-handle::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 16px;
-      height: 16px;
-      border-left: 2px solid #111111;
-      border-bottom: 2px solid #111111;
-      transform: translate(-50%, -50%) rotate(-45deg);
-    }
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    .reveal.visible {
-      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    .stagger-1 { animation-delay: 0.1s; }
-    .stagger-2 { animation-delay: 0.2s; }
-    .stagger-3 { animation-delay: 0.3s; }
-    .stagger-4 { animation-delay: 0.4s; }
-    .stagger-5 { animation-delay: 0.5s; }
-    .stagger-6 { animation-delay: 0.6s; }
-    .floating-badge {
-      animation: float 3s ease-in-out infinite;
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-    .pulse-ring {
-      position: absolute;
-      inset: -4px;
-      border-radius: 50%;
-      border: 2px solid #FFD60A;
-      opacity: 0;
-      animation: pulseRing 2s ease-out infinite;
-    }
-    @keyframes pulseRing {
-      0% { transform: scale(0.8); opacity: 0.6; }
-      100% { transform: scale(1.3); opacity: 0; }
-    }
-    .scroll-indicator {
-      animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-      40% { transform: translateY(-10px); }
-      60% { transform: translateY(-5px); }
-    }
-    .hero-gradient {
-      background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255, 214, 10, 0.12) 0%, transparent 70%),
-                  radial-gradient(ellipse 60% 40% at 80% 100%, rgba(17, 17, 17, 0.03) 0%, transparent 60%);
-    }
-    .service-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, #FFD60A 0%, #E6C009 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-    }
-    .bento-card:hover .service-icon {
-      transform: scale(1.1) rotate(3deg);
-    }
-    .stat-ring {
-      transform: rotate(-90deg);
-    }
-    .stat-ring circle {
-      transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .nav-link {
-      position: relative;
-      color: #111111;
+    .btn-black:hover { background: #E6C00A; color: #0A0A0A; transform: translateY(-1px); }
+    .btn-black:active { transform: translateY(0); }
+    .btn-border {
+      background: transparent;
+      color: #0A0A0A;
       font-weight: 500;
-      font-size: 0.875rem;
-      padding: 0.5rem 0;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 8px;
+      font-family: inherit;
+      transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
     }
-    .nav-link::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: #FFD60A;
-      transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+    .btn-border:hover { border-color: #FFD60A; color: #FFD60A; }
+
+    .nav-link { position: relative; padding-bottom: 4px; transition: color 200ms ease; }
+    .nav-link::after { content:''; position:absolute; bottom:0; left:0; width:0; height:2px; background:#FFD60A; transition:width 300ms cubic-bezier(0.4,0,0.2,1); }
     .nav-link:hover::after { width: 100%; }
-    .mobile-menu {
-      transform: translateX(100%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+    .badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 0 rgba(16,185,129,0.6);
+      animation: dot-pulse 2s infinite;
     }
-    .mobile-menu.open { transform: translateX(0); }
-    .toast {
-      transform: translateX(120%);
-      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    @keyframes dot-pulse { 0%,100%{ box-shadow: 0 0 0 0 rgba(16,185,129,0.5); } 50%{ box-shadow: 0 0 0 8px rgba(16,185,129,0); } }
+
+    .glass-badge {
+      background: #FFFFFF;
+      border: 1px solid rgba(0,0,0,0.06);
+      backdrop-filter: saturate(180%) blur(12px);
+      border-radius: 100px;
+      box-shadow: 0 8px 32px -12px rgba(0,0,0,0.08);
     }
-    .toast.show { transform: translateX(0); }
-    @media (max-width: 768px) {
-      .hero-title { font-size: clamp(2.5rem, 12vw, 4rem); }
-      .hero-subtitle { font-size: clamp(1.125rem, 4vw, 1.5rem); }
-      .section-title { font-size: clamp(2rem, 8vw, 3rem); }
-      .bento-grid { grid-template-columns: 1fr; }
-      .comparison-handle::before { width: 40px; height: 40px; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity 700ms cubic-bezier(0.4,0,0.2,1), transform 700ms cubic-bezier(0.4,0,0.2,1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .stagger-1 { transition-delay: 60ms; }
+    .stagger-2 { transition-delay: 140ms; }
+    .stagger-3 { transition-delay: 220ms; }
+    .stagger-4 { transition-delay: 300ms; }
+
+    .service-card {
+      background: #F5F5F7;
+      border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 28px;
+      padding: 40px 36px;
+      transition: all 450ms cubic-bezier(0.4,0,0.2,1);
+    }
+    .service-card:hover {
+      border-color: #FFD60A;
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px -10px rgba(0,0,0,0.06);
+    }
+    .service-card:hover .icon path, .service-card:hover .icon polyline, .service-card:hover .icon line, .service-card:hover .icon circle { stroke: #FFD60A; }
+
+    .gallery-item { position: relative; overflow: hidden; border-radius: 28px; background: #000; }
+    .gallery-item img { transition: transform 600ms cubic-bezier(0.4,0,0.2,1); }
+    .gallery-item:hover img { transform: scale(1.04); }
+
+    .sim-input {
+      width: 100%; background: #FFFFFF; border: 1px solid rgba(0,0,0,0.06);
+      border-radius: 14px; padding: 12px 16px; font-family: inherit; font-size: 1rem; color: #0A0A0A;
+      transition: border-color 200ms ease, box-shadow 200ms ease;
+    }
+    .sim-input:focus { outline: none; border-color: #FFD60A; box-shadow: 0 0 0 4px rgba(255,214,10,0.12); }
+    .sim-input::placeholder { color: #A1A1AA; }
+
+    .result-card {
+      background: #FFFFFF; border: 1px solid rgba(0,0,0,0.06); border-radius: 28px;
+      padding: 32px 28px; box-shadow: 0 20px 60px -14px rgba(0,0,0,0.06);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
     }
   </style>
 </head>
-<body class="bg-apple-white text-apple-black antialiased">
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 glass-nav transition-all duration-300">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3" aria-label="Accueil Lumière & Contrôle">
-        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" class="text-electric-yellow">
-          <rect width="32" height="32" rx="8" fill="currentColor"/>
-          <path d="M16 8V24M8 16H24" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
-        <span class="font-semibold text-lg tracking-tight">Lumière & Contrôle</span>
-      </a>
-      <div class="hidden md:flex items-center gap-10">
-        <a href="#services" class="nav-link">Services</a>
-        <a href="#realisations" class="nav-link">Réalisations</a>
-        <a href="#stats" class="nav-link">Expertise</a>
-        <a href="#devis" class="nav-link">Devis</a>
-      </div>
-      <div class="hidden md:flex items-center gap-4">
-        <a href="tel:+33123456789" class="text-sm font-medium text-apple-black/60 hover:text-apple-black transition-colors">01 23 45 67 89</a>
-        <button class="btn-yellow text-sm px-6 py-2.5" aria-label="Demander un devis">Devis Gratuit</button>
-      </div>
-      <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-apple-gray transition-colors" aria-label="Ouvrir le menu" aria-expanded="false">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
+<body class="bg-white text-carbon">
+
+<!-- ================= HEADER ================= -->
+<header id="header" class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-subtle" data-header>
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-1.5" aria-label="VOLT &amp; CO — Accueil">
+      <span class="text-xs font-bold tracking-widest text-slate uppercase">VOLT</span>&amp;<span class="text-xs font-bold tracking-widest text-slate uppercase">CO</span>
+      <span class="inline-block w-2 h-2 rounded-full bg-yellow mt-0.5"></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8">
+      <a href="#services" class="nav-link text-sm font-medium text-carbon">Services</a>
+      <a href="#realisations" class="nav-link text-sm font-medium text-carbon">Réalisations</a>
+      <a href="#temoignages" class="nav-link text-sm font-medium text-carbon">Avis clients</a>
+    </nav>
+    <div class="hidden md:flex items-center gap-4">
+      <a href="tel:+35226548910" class="text-sm font-medium text-carbon hover:text-yellow transition-colors" aria-label="Appeler VOLT &amp; CO">+352 26 54 89 10</a>
+      <button class="btn-black px-6 py-2.5 text-sm font-semibold">Appeler · 26 54 89 10</button>
     </div>
-    <div id="mobileMenu" class="mobile-menu md:hidden fixed inset-0 bg-apple-white z-40 pt-20 px-6 overflow-y-auto" aria-hidden="true">
-      <div class="flex flex-col gap-6 pb-12">
-        <a href="#services" class="text-2xl font-medium nav-link py-4 border-b border-apple-black/10">Services</a>
-        <a href="#realisations" class="text-2xl font-medium nav-link py-4 border-b border-apple-black/10">Réalisations</a>
-        <a href="#stats" class="text-2xl font-medium nav-link py-4 border-b border-apple-black/10">Expertise</a>
-        <a href="#devis" class="text-2xl font-medium nav-link py-4 border-b border-apple-black/10">Devis</a>
-        <div class="pt-4 flex flex-col gap-4">
-          <a href="tel:+33123456789" class="text-lg font-medium text-apple-black/60">01 23 45 67 89</a>
-          <button class="btn-yellow text-lg px-6 py-3 mt-2">Demander un Devis</button>
-        </div>
-      </div>
-    </div>
-  </nav>
 
-  <main>
-    <section class="hero-gradient min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-      <div class="absolute inset-0" aria-hidden="true">
-        <div class="absolute top-20 left-10 w-72 h-72 bg-electric-yellow/10 rounded-full blur-3xl floating-badge"></div>
-        <div class="absolute bottom-20 right-10 w-96 h-96 bg-apple-black/5 rounded-full blur-3xl floating-badge" style="animation-delay: 1.5s;"></div>
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-electric-yellow/5 rounded-full blur-3xl"></div>
-      </div>
-      <div class="max-w-7xl mx-auto px-6 py-20 relative z-10 text-center">
-        <div class="reveal stagger-1">
-          <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-apple-white/80 backdrop-blur border border-apple-black/10 text-sm font-medium mb-8">
-            <span class="w-2 h-2 bg-electric-yellow rounded-full pulse-ring"></span>
-            Artisan Certifié RGE & Qualifelec
-          </span>
-        </div>
-        <h1 class="hero-title text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight leading-[1.05] mb-8 reveal stagger-2">
-          L'Excellence<br>
-          <span class="text-electric-yellow">Électrique</span>
-        </h1>
-        <p class="hero-subtitle text-xl md:text-2xl lg:text-3xl font-light text-apple-black/60 max-w-3xl mx-auto mb-12 reveal stagger-3">
-          Domotique haut de gamme, installations électriques d'exception et rénovation de prestige. Chaque détail compte.
-        </p>
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 reveal stagger-4">
-          <button class="btn-primary text-lg px-10 py-4 w-full sm:w-auto" id="heroCta">Lancer mon projet</button>
-          <button class="btn-ghost text-lg px-10 py-4 w-full sm:w-auto" id="heroSecondary">Voir nos réalisations</button>
-        </div>
-        <div class="mt-20 reveal stagger-5 flex items-center justify-center gap-12 md:gap-16 text-center">
-          <div>
-            <p class="text-3xl md:text-4xl font-bold">500+</p>
-            <p class="text-sm font-medium text-apple-black/50 mt-1">Chantiers livrés</p>
-          </div>
-          <div class="w-px h-12 bg-apple-black/10"></div>
-          <div>
-            <p class="text-3xl md:text-4xl font-bold">4.9/5</p>
-            <p class="text-sm font-medium text-apple-black/50 mt-1">Satisfaction client</p>
-          </div>
-          <div class="w-px h-12 bg-apple-black/10"></div>
-          <div>
-            <p class="text-3xl md:text-4xl font-bold">30 min</p>
-            <p class="text-sm font-medium text-apple-black/50 mt-1">Réponse garantie</p>
-          </div>
-        </div>
-      </div>
-      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 reveal stagger-6">
-        <svg class="scroll-indicator w-6 h-6 text-apple-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.5">
-          <path d="M12 5v14M19 12l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>
-    </section>
-
-    <section id="services" class="py-24 md:py-32 lg:py-40 bg-apple-gray relative">
-      <div class="absolute inset-0" aria-hidden="true">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-electric-yellow/10 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2"></div>
-      </div>
-      <div class="max-w-7xl mx-auto px-6 relative">
-        <div class="text-center mb-16 reveal">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-electric-yellow text-sm font-semibold mb-6">Nos Expertises</span>
-          <h2 class="section-title text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-            4 Métiers,<br>Une Seule Exigence
-          </h2>
-          <p class="text-lg md:text-xl text-apple-black/50 max-w-2xl mx-auto font-light">
-            De la conception à la réalisation, chaque intervention répond aux standards les plus exigeants.
-          </p>
-        </div>
-        <div class="bento-grid grid gap-6 md:grid-cols-2 lg:grid-cols-4" id="servicesGrid">
-          <article class="bento-card p-8 md:p-10 lg:col-span-2 lg:row-span-2 relative reveal stagger-1 group" data-service="domotique">
-            <div class="absolute inset-0 bg-gradient-to-br from-electric-yellow/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-            <div class="relative z-10">
-              <div class="service-icon mb-6">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-                  <path d="M8 21h8M12 17v4"></path>
-                </svg>
-              </div>
-              <h3 class="text-2xl md:text-3xl font-bold mb-4">Domotique<br>Intelligente</h3>
-              <p class="text-apple-black/50 text-lg font-light mb-8 leading-relaxed">
-                Systèmes KNX, Loxone, Control4. Gestion centralisée éclairage, climat, sécurité, multimédia. Une interface, un contrôle total.
-              </p>
-              <ul class="space-y-3 text-base font-light text-apple-black/70">
-                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded-full bg-electric-yellow/20 flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Scénarios de vie personnalisés</li>
-                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded-full bg-electric-yellow/20 flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Pilotage vocal & mobile</li>
-                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded-full bg-electric-yellow/20 flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Économies d'énergie 30%+</li>
-              </ul>
-            </div>
-          </article>
-          <article class="bento-card p-8 reveal stagger-2 group" data-service="electrique">
-            <div class="relative z-10">
-              <div class="service-icon mb-6">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold mb-3">Électricité<br>Générale</h3>
-              <p class="text-apple-black/50 text-base font-light leading-relaxed">
-                Neuf & rénovation. Tableaux haute performance, câblage structuré, conformité NF C 15-100.
-              </p>
-            </div>
-          </article>
-          <article class="bento-card p-8 reveal stagger-3 group" data-service="renovation">
-            <div class="relative z-10">
-              <div class="service-icon mb-6">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                  <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold mb-3">Rénovation<br>de Prestige</h3>
-              <p class="text-apple-black/50 text-base font-light leading-relaxed">
-                Hôtels particuliers, appartements de standing. Intégration invisible, finitions sur-mesure.
-              </p>
-            </div>
-          </article>
-          <article class="bento-card p-8 reveal stagger-4 group" data-service="maintenance">
-            <div class="relative z-10">
-              <div class="service-icon mb-6">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-              </div>
-              <h3 class="text-xl font-bold mb-3">Maintenance<br>& Dépannage</h3>
-              <p class="text-apple-black/50 text-base font-light leading-relaxed">
-                Intervention 24/7, contrat d'entretien, audit thermique, mise en conformité.
-              </p>
-            </div>
-          </article>
-          <article class="bento-card p-8 md:p-10 lg:col-span-2 lg:row-span-2 reveal stagger-5 group" data-service="borne">
-            <div class="absolute inset-0 bg-gradient-to-br from-electric-yellow/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-            <div class="relative z-10">
-              <div class="service-icon mb-6">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.3-1.4.7L3 14c0 .6.4 1 1 1h2"></path>
-                  <line x1="9" y1="18" x2="9.01" y2="18"></line>
-                  <line x1="15" y1="18" x2="15.01" y2="18"></line>
-                </svg>
-              </div>
-              <h3 class="text-2xl md:text-3xl font-bold mb-4">Bornes de<br>Recharge IRVE</h3>
-              <p class="text-apple-black/50 text-lg font-light mb-8 leading-relaxed">
-                Installation certifiée IRVE, bornes 7-22kW, supervision énergétique, éligibilité primes Advenir.
-              </p>
-              <ul class="space-y-3 text-base font-light text-apple-black/70">
-                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded-full bg-electric-yellow/20 flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Certifié Qualifelec IRVE</li>
-                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded-full bg-electric-yellow/20 flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Gestion de charge dynamique</li>
-                <li class="flex items-center gap-3"><span class="w-6 h-6 rounded-full bg-electric-yellow/20 flex items-center justify-center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg></span>Suivi conso temps réel</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section id="realisations" class="py-24 md:py-32 lg:py-40 bg-apple-white relative">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16 reveal">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-electric-yellow text-sm font-semibold mb-6">Réalisations</span>
-          <h2 class="section-title text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-            Projets<br>d'Exception
-          </h2>
-          <p class="text-lg md:text-xl text-apple-black/50 max-w-2xl mx-auto font-light">
-            Une sélection de chantiers emblématiques. Chaque projet raconte une histoire d'exigence et de précision.
-          </p>
-        </div>
-        <div class="flex flex-wrap justify-center gap-3 mb-12 reveal stagger-1" role="tablist" aria-label="Filtrer les réalisations">
-          <button class="filter-btn active px-6 py-2.5 rounded-full text-sm font-medium border border-apple-black/10 bg-white" data-filter="all" role="tab" aria-selected="true">Tout</button>
-          <button class="filter-btn px-6 py-2.5 rounded-full text-sm font-medium border border-apple-black/10" data-filter="domotique" role="tab" aria-selected="false">Domotique</button>
-          <button class="filter-btn px-6 py-2.5 rounded-full text-sm font-medium border border-apple-black/10" data-filter="renovation" role="tab" aria-selected="false">Rénovation</button>
-          <button class="filter-btn px-6 py-2.5 rounded-full text-sm font-medium border border-apple-black/10" data-filter="borne" role="tab" aria-selected="false">IRVE</button>
-          <button class="filter-btn px-6 py-2.5 rounded-full text-sm font-medium border border-apple-black/10" data-filter="tertiaire" role="tab" aria-selected="false">Tertiaire</button>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryGrid">
-          <article class="gallery-item visible relative group" data-category="domotique renovation" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 24px; overflow: hidden; aspect-ratio: 4/3;">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
-            <div class="absolute inset-0 flex items-center justify-center z-5">
-              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="opacity-50">
-                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-                <path d="M8 21h8M12 17v4"></path>
-              </svg>
-            </div>
-            <div class="absolute bottom-6 left-6 right-6 z-20">
-              <span class="inline-block px-3 py-1 rounded-full bg-electric-yellow text-xs font-semibold text-apple-black mb-2">Domotique · Rénovation</span>
-              <h3 class="text-xl font-bold text-white mb-1">Hôtel Particulier, Paris 16<sup>e</sup></h3>
-              <p class="text-white/70 text-sm">KNX complet · 240 points · Scénarios cinéma</p>
-            </div>
-          </article>
-          <article class="gallery-item visible relative group" data-category="renovation" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border-radius: 24px; overflow: hidden; aspect-ratio: 4/3;">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
-            <div class="absolute inset-0 flex items-center justify-center z-5">
-              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="opacity-50">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-              </svg>
-            </div>
-            <div class="absolute bottom-6 left-6 right-6 z-20">
-              <span class="inline-block px-3 py-1 rounded-full bg-electric-yellow text-xs font-semibold text-apple-black mb-2">Rénovation</span>
-              <h3 class="text-xl font-bold text-white mb-1">Appartement Haussmannien, Lyon</h3>
-              <p class="text-white/70 text-sm">Électricité invisible · Moulures préservées</p>
-            </div>
-          </article>
-          <article class="gallery-item visible relative group" data-category="borne tertiaire" style="background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%); border-radius: 24px; overflow: hidden; aspect-ratio: 4/3;">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
-            <div class="absolute inset-0 flex items-center justify-center z-5">
-              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="opacity-50">
-                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.3-1.4.7L3 14c0 .6.4 1 1 1h2"></path>
-                <line x1="9" y1="18" x2="9.01" y2="18"></line>
-                <line x1="15" y1="18" x2="15.01" y2="18"></line>
-              </svg>
-            </div>
-            <div class="absolute bottom-6 left-6 right-6 z-20">
-              <span class="inline-block px-3 py-1 rounded-full bg-electric-yellow text-xs font-semibold text-apple-black mb-2">IRVE · Tertiaire</span>
-              <h3 class="text-xl font-bold text-white mb-1">Siège Social, La Défense</h3>
-              <p class="text-white/70 text-sm">12 bornes 22kW · Supervision énergétique</p>
-            </div>
-          </article>
-          <article class="gallery-item visible relative group" data-category="domotique" style="background: linear-gradient(135deg, #0f2027 0%, #203a43 100%); border-radius: 24px; overflow: hidden; aspect-ratio: 4/3;">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
-            <div class="absolute inset-0 flex items-center justify-center z-5">
-              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="opacity-50">
-                <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-                <path d="M8 21h8M12 17v4"></path>
-              </svg>
-            </div>
-            <div class="absolute bottom-6 left-6 right-6 z-20">
-              <span class="inline-block px-3 py-1 rounded-full bg-electric-yellow text-xs font-semibold text-apple-black mb-2">Domotique</span>
-              <h3 class="text-xl font-bold text-white mb-1">Villa Contemporaine, Cannes</h3>
-              <p class="text-white/70 text-sm">Loxone · Pilotage piscine & éclairage jardin</p>
-            </div>
-          </article>
-          <article class="gallery-item visible relative group" data-category="renovation tertiaire" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border-radius: 24px; overflow: hidden; aspect-ratio: 4/3;">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
-            <div class="absolute inset-0 flex items-center justify-center z-5">
-              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="opacity-50">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-              </svg>
-            </div>
-            <div class="absolute bottom-6 left-6 right-6 z-20">
-              <span class="inline-block px-3 py-1 rounded-full bg-electric-yellow text-xs font-semibold text-apple-black mb-2">Rénovation · Tertiaire</span>
-              <h3 class="text-xl font-bold text-white mb-1">Bureaux Premium, Bordeaux</h3>
-              <p class="text-white/70 text-sm">Câblage Cat 6a · Tableaux redondés</p>
-            </div>
-          </article>
-          <article class="gallery-item visible relative group" data-category="borne" style="background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border-radius: 24px; overflow: hidden; aspect-ratio: 4/3;">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
-            <div class="absolute inset-0 flex items-center justify-center z-5">
-              <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" class="opacity-50">
-                <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.3-1.4.7L3 14c0 .6.4 1 1 1h2"></path>
-                <line x1="9" y1="18" x2="9.01" y2="18"></line>
-                <line x1="15" y1="18" x2="15.01" y2="18"></line>
-              </svg>
-            </div>
-            <div class="absolute bottom-6 left-6 right-6 z-20">
-              <span class="inline-block px-3 py-1 rounded-full bg-electric-yellow text-xs font-semibold text-apple-black mb-2">IRVE</span>
-              <h3 class="text-xl font-bold text-white mb-1">Résidence Standing, Nice</h3>
-              <p class="text-white/70 text-sm">8 bornes partagées · Gestion dynamique</p>
-            </div>
-          </article>
-        </div>
-        <div class="text-center mt-12 reveal stagger-2">
-          <button class="btn-ghost text-lg px-10 py-4" id="loadMore">Voir plus de réalisations</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="comparison" class="py-24 md:py-32 lg:py-40 bg-apple-gray relative">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="text-center mb-16 reveal">
-          <span class="inline-block px-4 py-1.5 rounded-full bg-electric-yellow text-sm font-semibold mb-6">Avant / Après</span>
-          <h2 class="section-title text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-            La Différence<br>Se Voit
-          </h2>
-          <p class="text-lg md:text-xl text-apple-black/50 max-w-2xl mx-auto font-light">
-            Glissez le curseur pour comparer l'existant et notre intervention. La qualité dans les moindres détails.
-          </p>
-        </div>
-        <div class="grid md:grid-cols-2 gap-8">
-          <div class="reveal stagger-1">
-            <div class="comparison-slider aspect-[4/3] relative" id="comparison1">
-              <img src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?w=800&q=80" alt="Tableau électrique avant rénovation" class="w-full h-full object-cover">
-              <div class="comparison-before">
-                <img src="https://images.unsplash.com/photo-1621905251918-48416bd8575a?w=800&q=80" alt="Tableau électrique après rénovation" class="w-full h-full object-cover">
-              </div>
-              <div class="comparison-handle" id="handle1" role="slider" aria-label="Comparer avant après" tabindex="0"></div>
-            </div>
-            <div class="flex justify-between mt-4 text-sm font-medium">
-              <span class="text-apple-black/50">Avant : Tableau vétuste</span>
-              <span class="text-electric-yellow font-semibold">Après : Conforme & Performant</span>
-            </div>
-          </div>
-          <div class="reveal stagger-2">
-            <div class="comparison-slider aspect-[4/3] relative" id="comparison2">
-              <img src="https://images.unsplash.com/photo-1558002038-1055907df827?w=800&q=80" alt="Salon avant domotique" class="w-full h-full object-cover">
-              <div class="comparison-before">
-                <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80" alt="Salon après domotique" class="w-full h-full object-cover">
-              </div>
-              <div class="comparison-handle" id="handle2" role="slider" aria-label="Comparer avant après" tabindex="0"></div>
-            </div>
-            <div class="flex justify-between mt-4 text-sm font-medium">
-              <span class="text-apple-black/50">Avant : Commandes multiples</span>
-              <span class="text-electric-yellow font-semibold">Après : Une Interface Unique</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="stats" class="py-24 md:py-32 lg:py-40 bg-apple-white relative">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="grid md:grid-cols-3 gap-8 md:gap-12">
-          <div class="relative reveal stagger-1 text-center md:text-left">
-            <div class="relative w-48 h-48 mx-auto md:mx-0 mb-6" id="statRing1">
-              <svg class="w-full h-full stat-ring" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r="54" fill="none" stroke="#E5E5E7" stroke-width="8"/>
-                <circle id="progress1" cx="60" cy="60" r="54" fill="none" stroke="#FFD60A" stroke-width="8" stroke-linecap="round" stroke-dasharray="339" stroke-dashoffset="339"/>
-              </svg>
-              <div class="absolute inset-0 flex flex-col items-center justify-center">
-                <span class="counter-digit text-4xl md:text-5xl lg:text-6xl font-extrabold" data-target="500" data-suffix="+"><span>0</span></span>
-                <span class="text-sm font-medium text-apple-black/50 mt-1">Chantiers</span>
-              </div>
-            </div>
-            <h3 class="text-2xl md:text-3xl font-bold mb-2">Projets Livrés</h3>
-            <p class="text-apple-black/50 font-light">De la villa au siège social, chaque chantier reçoit la même exigence.</p>
-          </div>
-          <div class="relative reveal stagger-2 text-center md:text-left">
-            <div class="relative w-48 h-48 mx-auto md:mx-0 mb-6" id="statRing2">
-              <svg class="w-full h-full stat-ring" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r="54" fill="none" stroke="#E5E5E7" stroke-width="8"/>
-                <circle id="progress2" cx="60" cy="60" r="54" fill="none" stroke="#FFD60A" stroke-width="8" stroke-linecap="round" stroke-dasharray="339" stroke-dashoffset="339"/>
-              </svg>
-              <div class="absolute inset-0 flex flex-col items-center justify-center">
-                <span class="counter-digit text-4xl md:text-5xl lg:text-6xl font-extrabold" data-target="4.9" data-suffix="/5"><span>0</span></span>
-                <span class="text-sm font-medium text-apple-black/50 mt-1">Note Moyenne</span>
-              </div>
-            </div>
-            <h3 class="text-2xl md:text-3xl font-bold mb-2">Satisfaction Client</h3>
-            <p class="text-apple-black/50 font-light">4.9/5 sur 200+ avis Google. La réactivité et la propreté sont nos signatures.</p>
-          </div>
-          <div class="relative reveal stagger-3 text-center md:text-left">
-            <div class="relative w-48 h-48 mx-auto md:mx-0 mb-6" id="statRing3">
-              <svg class="w-full h-full stat-ring" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r="54" fill="none" stroke="#E5E5E7" stroke-width="8"/>
-                <circle id="progress3" cx="60" cy="60" r="54" fill="none" stroke="#FFD60A" stroke-width="8" stroke-linecap="round" stroke-dasharray="339" stroke-dashoffset="339"/>
-              </svg>
-              <div class="absolute inset-0 flex flex-col items-center justify-center">
-                <span class="counter-digit text-4xl md:text-5xl lg:text-6xl font-extrabold" data-target="30" data-suffix=" min"><span>0</span></span>
-                <span class="text-sm font-medium text-apple-black/50 mt-1">Réponse</span>
-              </div>
-            </div>
-            <h3 class="text-2xl md:text-3xl font-bold mb-2">Intervention Rapide</h3>
-            <p class="text-apple-black/50 font-light">Devis sous 30 min en journée. Urgence 24/7 : technicien sur site en < 2h.</p>
-          </div>
-        </div>
-        <div class="mt-16 grid md:grid-cols-4 gap-6 reveal stagger-4">
-          <div class="p-6 bg-apple-gray rounded-2xl border border-apple-black/5">
-            <p class="text-3xl font-extrabold mb-1">15</p>
-            <p class="text-apple-black/50 font-light">Années d'expérience</p>
-          </div>
-          <div class="p-6 bg-apple-gray rounded-2xl border border-apple-black/5">
-            <p class="text-3xl font-extrabold mb-1">12</p>
-            <p class="text-apple-black/50 font-light">Certifications actives</p>
-          </div>
-          <div class="p-6 bg-apple-gray rounded-2xl border border-apple-black/5">
-            <p class="text-3xl font-extrabold mb-1">8</p>
-            <p class="text-apple-black/50 font-light">Techniciens formés</p>
-          </div>
-          <div class="p-6 bg-apple-gray rounded-2xl border border-apple-black/5">
-            <p class="text-3xl font-extrabold mb-1">98%</p>
-            <p class="text-apple-black/50 font-light">Taux de recommandation</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="devis" class="py-24 md:py-32 lg:py-40 bg-apple-gray relative">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="max-w-3xl mx-auto">
-          <div class="text-center mb-12 reveal">
-            <span class="inline-block px-4 py-1.5 rounded-full bg-electric-yellow text-sm font-semibold mb-6">Devis Express</span>
-            <h2 class="section-title text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-              Votre Projet<br>En 3 Étapes
-            </h2>
-            <p class="text-lg md:text-xl text-apple-black/50 font-light">
-              2 minutes pour un devis préliminaire gratuit. Sans engagement, réponse garantie sous 30 min.
-            </p>
-          </div>
-          <div class="flex items-center justify-center gap-4 mb-12 reveal stagger-1" role="tablist" aria-label="Étapes du devis">
-            <div class="flex items-center gap-4">
-              <div class="step-indicator active" data-step="1" role="tab" aria-selected="true" aria-controls="step1-panel" id="step1-tab">1</div>
-              <div class="step-line" id="line1"></div>
-              <div class="step-indicator" data-step="2" role="tab" aria-selected="false" aria-controls="step2-panel" id="step2-tab">2</div>
-              <div class="step-line" id="line2"></div>
-              <div class="step-indicator" data-step="3" role="tab" aria-selected="false" aria-controls="step3-panel" id="step3-tab">3</div>
-            </div>
-          </div>
-          <form id="quoteForm" novalidate>
-            <div class="step-panel" id="step1-panel" role="tabpanel" aria-labelledby="step1-tab">
-              <h3 class="text-2xl font-bold mb-6">Quel type de projet ?</h3>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4" role="radiogroup" aria-label="Type de projet">
-                <label class="relative cursor-pointer">
-                  <input type="radio" name="projectType" value="domotique" class="sr-only" required>
-                  <div class="p-6 rounded-2xl border-2 border-apple-black/10 hover:border-electric-yellow transition-all text-center group" data-choice="domotique">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-electric-yellow/10 flex items-center justify-center group-hover:bg-electric-yellow transition-colors">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" class="group-hover:stroke-white transition-colors">
-                        <rect x="2" y="3" width="20" height="14" rx="2"></rect>
-                        <path d="M8 21h8M12 17v4"></path>
-                      </svg>
-                    </div>
-                    <h4 class="font-semibold mb-1">Domotique</h4>
-                    <p class="text-sm text-apple-black/50">KNX, Loxone, Control4...</p>
-                  </div>
-                </label>
-                <label class="relative cursor-pointer">
-                  <input type="radio" name="projectType" value="electricite" class="sr-only">
-                  <div class="p-6 rounded-2xl border-2 border-apple-black/10 hover:border-electric-yellow transition-all text-center group" data-choice="electricite">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-electric-yellow/10 flex items-center justify-center group-hover:bg-electric-yellow transition-colors">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" class="group-hover:stroke-white transition-colors">
-                        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                      </svg>
-                    </div>
-                    <h4 class="font-semibold mb-1">Électricité Générale</h4>
-                    <p class="text-sm text-apple-black/50">Neuf, rénovation, mise aux normes</p>
-                  </div>
-                </label>
-                <label class="relative cursor-pointer">
-                  <input type="radio" name="projectType" value="renovation" class="sr-only">
-                  <div class="p-6 rounded-2xl border-2 border-apple-black/10 hover:border-electric-yellow transition-all text-center group" data-choice="renovation">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-electric-yellow/10 flex items-center justify-center group-hover:bg-electric-yellow transition-colors">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" class="group-hover:stroke-white transition-colors">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                      </svg>
-                    </div>
-                    <h4 class="font-semibold mb-1">Rénovation Prestige</h4>
-                    <p class="text-sm text-apple-black/50">Hôtels particuliers, standing</p>
-                  </div>
-                </label>
-                <label class="relative cursor-pointer">
-                  <input type="radio" name="projectType" value="borne" class="sr-only">
-                  <div class="p-6 rounded-2xl border-2 border-apple-black/10 hover:border-electric-yellow transition-all text-center group" data-choice="borne">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-xl bg-electric-yellow/10 flex items-center justify-center group-hover:bg-electric-yellow transition-colors">
-                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2" class="group-hover:stroke-white transition-colors">
-                        <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.3-1.4.7L3 14c0 .6.4 1 1 1h2"></path>
-                        <line x1="9" y1="18" x2="9.01" y2="18"></line>
-                        <line x1="15" y1="18" x2="15.01" y2="18"></line>
-                      </svg>
-                    </div>
-                    <h4 class="font-semibold mb-1">Borne IRVE</h4>
-                    <p class="text-sm text-apple-black/50">Installation certifiée 7-22kW</p>
-                  </div>
-                </label>
-              </div>
-              <div class="mt-6 flex justify-end">
-                <button type="button" class="btn-primary" id="nextStep1">Suivant</button>
-              </div>
-            </div>
-            <div class="step-panel hidden" id="step2-panel" role="tabpanel" aria-labelledby="step2-tab">
-              <h3 class="text-2xl font-bold mb-6">Détails du chantier</h3>
-              <div class="space-y-5">
-                <div>
-                  <label for="surface" class="form-label">Surface concernée (m²)</label>
-                  <input type="number" id="surface" name="surface" class="form-input" placeholder="Ex: 120" min="10" max="5000" required>
-                </div>
-                <div>
-                  <label for="timeline" class="form-label">Délai souhaité</label>
-                  <select id="timeline" name="timeline" class="form-input" required>
-                    <option value="">Sélectionnez un délai</option>
-                    <option value="urgent">Urgent (< 2 semaines)</option>
-                    <option value="court">Sous 1 mois</option>
-                    <option value="normal">1-3 mois</option>
-                    <option value="flexible">Flexible (3+ mois)</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="budget" class="form-label">Budget indicatif</label>
-                  <select id="budget" name="budget" class="form-input" required>
-                    <option value="">Sélectionnez une fourchette</option>
-                    <option value="10-30">10k€ - 30k€</option>
-                    <option value="30-60">30k€ - 60k€</option>
-                    <option value="60-100">60k€ - 100k€</option>
-                    <option value="100+">100k€+</option>
-                    <option value="etude">À définir après étude</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="address" class="form-label">Adresse du chantier</label>
-                  <input type="text" id="address" name="address" class="form-input" placeholder="Ville, code postal" required>
-                </div>
-              </div>
-              <div class="mt-6 flex justify-between">
-                <button type="button" class="btn-ghost" id="prevStep2">Précédent</button>
-                <button type="button" class="btn-primary" id="nextStep2">Suivant</button>
-              </div>
-            </div>
-            <div class="step-panel hidden" id="step3-panel" role="tabpanel" aria-labelledby="step3-tab">
-              <h3 class="text-2xl font-bold mb-6">Vos coordonnées</h3>
-              <div class="space-y-5">
-                <div class="grid sm:grid-cols-2 gap-5">
-                  <div>
-                    <label for="firstName" class="form-label">Prénom</label>
-                    <input type="text" id="firstName" name="firstName" class="form-input" placeholder="Jean" required>
-                  </div>
-                  <div>
-                    <label for="lastName" class="form-label">Nom</label>
-                    <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Dupont" required>
-                  </div>
-                </div>
-                <div>
-                  <label for="email" class="form-label">Email</label>
-                  <input type="email" id="email" name="email" class="form-input" placeholder="jean.dupont@email.fr" required>
-                </div>
-                <div>
-                  <label for="phone" class="form-label">Téléphone</label>
-                  <input type="tel" id="phone" name="phone" class="form-input" placeholder="06 12 34 56 78" required>
-                </div>
-                <div>
-                  <label class="form-label flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" name="consent" class="w-5 h-5 rounded border-apple-black/20 text-electric-yellow focus:ring-electric-yellow" required>
-                    <span class="text-sm text-apple-black/60">J'accepte d'être recontacté pour mon projet (RGPD)</span>
-                  </label>
-                </div>
-              </div>
-              <div class="mt-6 flex justify-between">
-                <button type="button" class="btn-ghost" id="prevStep3">Précédent</button>
-                <button type="submit" class="btn-yellow">Envoyer ma demande</button>
-              </div>
-            </div>
-          </form>
-          <div id="successMessage" class="hidden text-center py-12 reveal">
-            <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-electric-yellow/10 flex items-center justify-center">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold mb-2">Demande envoyée !</h3>
-            <p class="text-apple-black/50 mb-6">Nous vous recontactons sous 30 minutes aux heures ouvrées.</p>
-            <button type="button" class="btn-primary" id="newQuote">Nouveau devis</button>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-24 md:py-32 bg-apple-black text-white relative">
-      <div class="absolute inset-0" aria-hidden="true">
-        <div class="absolute top-0 left-0 w-96 h-96 bg-electric-yellow/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2"></div>
-      </div>
-      <div class="max-w-7xl mx-auto px-6 relative">
-        <div class="grid md:grid-cols-2 gap-16 items-center">
-          <div class="reveal stagger-1">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-              Prêt à Lancer<br>Votre Projet ?
-            </h2>
-            <p class="text-white/60 text-lg md:text-xl font-light mb-8 max-w-xl">
-              Discutons de votre vision. Première étude offerte, sans engagement.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4">
-              <a href="tel:+33123456789" class="btn-yellow text-center">Appeler maintenant</a>
-              <a href="#devis" class="btn-ghost border-white/20 text-white hover:bg-white/10 text-center">Demander un devis</a>
-            </div>
-          </div>
-          <div class="reveal stagger-2 bg-white/5 rounded-3xl p-8 md:p-12 border border-white/10">
-            <h3 class="text-xl font-semibold mb-6">Coordonnées</h3>
-            <div class="space-y-5 text-white/70">
-              <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-electric-yellow/10 flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-medium">12 Rue de l'Excellence</p>
-                  <p class="text-sm">75016 Paris</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-electric-yellow/10 flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-medium">01 23 45 67 89</p>
-                  <p class="text-sm">Lun-Ven 8h-19h · Sam 9h-13h</p>
-                </div>
-              </div>
-              <div class="flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-electric-yellow/10 flex items-center justify-center">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                    <polyline points="22,6 12,13 2,6"></polyline>
-                  </svg>
-                </div>
-                <div>
-                  <p class="font-medium">contact@lumière-controle.fr</p>
-                  <p class="text-sm">Réponse sous 30 min garantie</p>
-                </div>
-              </div>
-            </div>
-            <div class="mt-8 pt-8 border-t border-white/10 flex flex-wrap gap-4">
-              <a href="#" class="text-white/50 hover:text-electric-yellow transition-colors" aria-label="Google Reviews">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-              </a>
-              <a href="#" class="text-white/50 hover:text-electric-yellow transition-colors" aria-label="LinkedIn">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-              </a>
-              <a href="#" class="text-white/50 hover:text-electric-yellow transition-colors" aria-label="Instagram">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <footer class="bg-apple-white border-t border-apple-black/10 py-12">
-      <div class="max-w-7xl mx-auto px-6">
-        <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div class="flex items-center gap-3">
-            <svg width="28" height="28" viewBox="0 0 32 32" fill="none" class="text-electric-yellow">
-              <rect width="32" height="32" rx="8" fill="currentColor"/>
-              <path d="M16 8V24M8 16H24" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-            </svg>
-            <span class="font-semibold text-lg">Lumière & Contrôle</span>
-          </div>
-          <nav class="flex flex-wrap justify-center gap-6 text-sm text-apple-black/50">
-            <a href="#services" class="hover:text-apple-black transition-colors">Services</a>
-            <a href="#realisations" class="hover:text-apple-black transition-colors">Réalisations</a>
-            <a href="#stats" class="hover:text-apple-black transition-colors">Expertise</a>
-            <a href="#devis" class="hover:text-apple-black transition-colors">Devis</a>
-          </nav>
-          <p class="text-sm text-apple-black/40">© 2025 Lumière & Contrôle. Tous droits réservés.</p>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <div id="toast" class="toast fixed bottom-6 right-6 z-50 bg-apple-black text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3" role="alert" aria-live="polite">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-      <polyline points="22 4 12 14.01 9 11.01"></polyline>
-    </svg>
-    <span id="toastMessage">Message envoyé</span>
+    <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-carbon-light transition-colors" aria-label="Menu" aria-expanded="false">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+    </button>
   </div>
+</header>
 
-  <script>
-    (function() {
-      'use strict';
+<!-- Mobile menu overlay -->
+<nav id="mobileMenu" class="fixed inset-0 z-[55] bg-white hidden flex-col items-center justify-center pt-32 pb-12 px-6 text-center gap-8">
+  <a href="#services" class="text-3xl font-bold text-carbon hover:text-yellow transition-colors">Services</a>
+  <a href="#realisations" class="text-3xl font-bold text-carbon hover:text-yellow transition-colors">Réalisations</a>
+  <a href="#temoignages" class="text-3xl font-bold text-carbon hover:text-yellow transition-colors">Avis clients</a>
+  <a href="tel:+35226548910" class="btn-black px-8 py-3 text-lg">+352 26 54 89 10</a>
+  <button class="hidden md:block" id="closeMobileMenu" class="text-slate hover:text-carbon">Fermer</button>
+</nav>
 
-      const navbar = document.getElementById('navbar');
-      const menuBtn = document.getElementById('menuBtn');
-      const mobileMenu = document.getElementById('mobileMenu');
-      const heroCta = document.getElementById('heroCta');
-      const heroSecondary = document.getElementById('heroSecondary');
-      const loadMore = document.getElementById('loadMore');
-      const quoteForm = document.getElementById('quoteForm');
-      const successMessage = document.getElementById('successMessage');
-      const newQuoteBtn = document.getElementById('newQuote');
-      const toast = document.getElementById('toast');
-      const toastMessage = document.getElementById('toastMessage');
+<main class="pt-40 md:pt-64">
 
-      let currentStep = 1;
-      let scrollTimeout;
+  <!-- ================= HERO ================= -->
+  <section id="hero" class="relative overflow-hidden bg-carbon-light">
+    <div class="max-w-7xl mx-auto px-6 relative z-10">
+      <div class="grid md:grid-cols-2 gap-12 md:gap-16 items-center py-24 md:py-40">
+        <div class="max-w-xl">
+          <div class="inline-flex items-center gap-2 badge-glass mb-8">
+            <span class="badge-dot"></span>
+            <span class="text-xs font-bold tracking-widest text-carbon uppercase">Intervention urgence 7j/7 · Luxembourg</span>
+          </div>
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-carbon letter-tight leading-[1.05] mb-6">
+            L’électricité de précision.
+          </h1>
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold text-carbon letter-tight leading-[1.05] mb-8">
+            Sans mauvaise surprise.
+          </h1>
+          <p class="text-lg md:text-xl text-slate leading-relaxed max-w-lg mb-10">
+            Installation complète, mise aux normes ILR et domotique KNX pour particuliers et professionnels. Devis détaillé sous 24h.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4">
+            <button class="btn-yellow px-8 py-4 text-lg font-semibold w-full sm:w-auto">Estimer mon projet</button>
+            <button class="btn-border px-8 py-4 text-lg font-medium w-full sm:w-auto">Voir nos chantiers</button>
+          </div>
+        </div>
+        <div class="relative h-[520px] md:h-[640px] min-h-[420px] rounded-3xl overflow-hidden shadow-xl reveal stagger-1">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1400&q=85" alt="Intérieur résidentiel moderne, éclairage architectural, Luxembourg" class="w-full h-full object-cover">
+          <div class="absolute -bottom-6 -left-6 w-64 glass-badge px-5 py-4 rounded-2xl z-20">
+            <div class="flex items-center gap-2 mb-1">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFD60A" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path></svg>
+              <span class="text-xs font-bold text-carbon">Note Google 4.9/5</span>
+            </div>
+            <p class="text-[10px] text-slate uppercase tracking-wider">142 avis clients</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      function init() {
-        setupNavbar();
-        setupMobileMenu();
-        setupSmoothScroll();
-        setupScrollReveal();
-        setupCounters();
-        setupComparisonSliders();
-        setupGalleryFilter();
-        setupQuoteForm();
-        setupServiceCards();
-        setupLoadMore();
-        heroCta.addEventListener('click', () => scrollToSection('devis'));
-        heroSecondary.addEventListener('click', () => scrollToSection('realisations'));
-      }
+  <!-- ================= PREUVE SOCIALE ================= -->
+  <section id="preuves" class="bg-white py-24 md:py-32">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 items-center justify-center">
+        <div class="text-center reveal stagger-1">
+          <p class="text-4xl md:text-5xl font-bold text-carbon tabular-nums letter-tight">15</p>
+          <p class="text-xs font-bold uppercase tracking-widest text-slate mt-2">ans d’expérience</p>
+        </div>
+        <div class="text-center reveal stagger-2 relative">
+          <div class="absolute -top-4 -left-1/2 -translate-x-1/2 w-[1px] h-12 bg-subtle"></div>
+          <p class="text-4xl md:text-5xl font-bold text-carbon tabular-nums letter-tight">45</p>
+          <p class="text-xs font-bold uppercase tracking-widest text-slate mt-2">min délai moyen urgence</p>
+        </div>
+        <div class="text-center reveal stagger-3 relative">
+          <div class="absolute -top-4 -left-1/2 -translate-x-1/2 w-[1px] h-12 bg-subtle"></div>
+          <p class="text-4xl md:text-5xl font-bold text-carbon tabular-nums letter-tight">100</p>
+          <p class="text-xs font-bold uppercase tracking-widest text-slate mt-2">% aux normes luxembourgeoises</p>
+        </div>
+        <div class="text-center reveal stagger-4 relative">
+          <div class="absolute -top-4 -left-1/2 -translate-x-1/2 w-[1px] h-12 bg-subtle"></div>
+          <p class="text-4xl md:text-5xl font-bold text-carbon tabular-nums letter-tight">10</p>
+          <p class="text-xs font-bold uppercase tracking-widest text-slate mt-2">ans garantie décennale</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      function setupNavbar() {
-        window.addEventListener('scroll', () => {
-          clearTimeout(scrollTimeout);
-          scrollTimeout = setTimeout(() => {
-            if (window.scrollY > 50) {
-              navbar.classList.add('scrolled');
-            } else {
-              navbar.classList.remove('scrolled');
-            }
-          }, 10);
-        }, { passive: true });
-      }
+  <!-- ================= SERVICES ================= -->
+  <section id="services" class="bg-carbon-light py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-20">
+        <p class="text-xs font-bold uppercase tracking-widest text-slate mb-4">Nos services</p>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-carbon letter-tight mb-6">Quatre métiers,</h2>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-carbon letter-tight">un seul standard.</h2>
+        <p class="text-lg text-slate max-w-2xl mx-auto mt-4">Chaque intervention respecte le Règlement général sur les installations électriques (RGI) et les normes ILR en vigueur.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        <article class="service-card reveal stagger-1" tabindex="0">
+          <div class="icon-wrapper mb-7 inline-block rounded-2xl bg-white p-4 flex items-center justify-center" style="width:48px;height:48px;">
+            <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Dépannage &amp; urgence</h3>
+          <p class="text-sm text-slate leading-relaxed">Panne totale, court-circuit, disjoncteur qui saute. Déplacement sous 45 minutes à Esch-sur-Alzette et dans tout le Grand-Duché.</p>
+        </article>
+        <article class="service-card reveal stagger-2" tabindex="0">
+          <div class="icon-wrapper mb-7 inline-block rounded-2xl bg-white p-4 flex items-center justify-center" style="width:48px;height:48px;">
+            <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Rénovation &amp; mise aux normes</h3>
+          <p class="text-sm text-slate leading-relaxed">Remplacement de tableau électrique, mise à la terre, conformité RGI. Appartements, maisons et copropriétés.</p>
+        </article>
+        <article class="service-card reveal stagger-3" tabindex="0">
+          <div class="icon-wrapper mb-7 inline-block rounded-2xl bg-white p-4 flex items-center justify-center" style="width:48px;height:48px;">
+            <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"></rect><path d="M8 21h8M12 17v4"></path></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Domotique &amp; éclairage</h3>
+          <p class="text-sm text-slate leading-relaxed">Contrôle depuis le smartphone, scénarios lumineux, volets automatisés. Systèmes KNX et installations connectées.</p>
+        </article>
+        <article class="service-card reveal stagger-4" tabindex="0">
+          <div class="icon-wrapper mb-7 inline-block rounded-2xl bg-white p-4 flex items-center justify-center" style="width:48px;height:48px;">
+            <svg class="icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0A0A0A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.3-1.4.7L3 14c0 .6.4 1 1 1h2"></path><line x1="9" y1="18" x2="9.01" y2="18"></line><line x1="15" y1="18" x2="15.01" y2="18"></line></svg>
+          </div>
+          <h3 class="text-xl font-bold mb-2">Borne de recharge VE</h3>
+          <p class="text-sm text-slate leading-relaxed">Installation de Wallbox certifiée à domicile, supervision énergétique et gestion de charge dynamique.</p>
+        </article>
+      </div>
+    </div>
+  </section>
 
-      function setupMobileMenu() {
-        menuBtn.addEventListener('click', () => {
-          const isOpen = mobileMenu.classList.toggle('open');
-          menuBtn.setAttribute('aria-expanded', isOpen);
-          mobileMenu.setAttribute('aria-hidden', !isOpen);
-          document.body.style.overflow = isOpen ? 'hidden' : '';
-        });
+  <!-- ================= REALISATIONS ================= -->
+  <section id="realisations" class="bg-white py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <p class="text-xs font-bold uppercase tracking-widest text-slate mb-4">Nos réalisations</p>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-carbon letter-tight">Chantiers récents</h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <figure class="gallery-item reveal stagger-1 group">
+          <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=900&q=85" alt="Villa moderne à Belval, tableau KNX et éclairage indirect">
+          <div class="absolute -bottom-10 left-4 w-64 glass-badge px-5 py-3 rounded-2xl z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p class="text-xs font-bold text-carbon">Villa moderne · Belval</p>
+            <p class="text-[10px] text-slate uppercase tracking-wider mt-0.5">Tableau KNX &amp; éclairage indirect</p>
+          </div>
+        </figure>
+        <figure class="gallery-item reveal stagger-2 group">
+          <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?w=900&q=85" alt="Tableau électrique et installation conforme aux normes RGI">
+          <div class="absolute -bottom-10 left-4 w-64 glass-badge px-5 py-3 rounded-2xl z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p class="text-xs font-bold text-carbon">Appartement · Esch-sur-Alzette</p>
+            <p class="text-[10px] text-slate uppercase tracking-wider mt-0.5">Tableau électrique &amp; mise aux normes</p>
+          </div>
+        </figure>
+        <figure class="gallery-item reveal stagger-3 group">
+          <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=900&q=85" alt="Maison connectée, système domotique à Strassen">
+          <div class="absolute -bottom-10 left-4 w-64 glass-badge px-5 py-3 rounded-2xl z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <p class="text-xs font-bold text-carbon">Maison connectée · Strassen</p>
+            <p class="text-[10px] text-slate uppercase tracking-wider mt-0.5">Domotique &amp; éclairage intelligent</p>
+          </div>
+        </figure>
+      </div>
+    </div>
+  </section>
 
-        mobileMenu.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.remove('open');
-            menuBtn.setAttribute('aria-expanded', 'false');
-            mobileMenu.setAttribute('aria-hidden', 'true');
-            document.body.style.overflow = '';
-          });
-        });
-      }
+  <!-- ================= DEVIS / SIMULATEUR ================= -->
+  <section id="devis" class="bg-carbon-light py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-12 items-start">
+        <div class="reveal stagger-1">
+          <p class="text-xs font-bold uppercase tracking-widest text-slate mb-4">Devis en ligne</p>
+          <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-carbon letter-tight mb-6">Votre projet, chiffré en deux minutes</h2>
+          <p class="text-lg text-slate leading-relaxed mb-8">Sélectionnez votre besoin, le type de bien et votre localisation pour obtenir une fourchette de prix réaliste, instantanément.</p>
 
-      function setupSmoothScroll() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            const target = document.querySelector(targetId);
-            if (target) {
-              e.preventDefault();
-              const offset = 80;
-              const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-              window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-            }
-          });
-        });
-      }
+          <form id="simulateur" class="space-y-5" novalidate>
+            <div>
+              <label class="block text-sm font-bold text-carbon mb-2">Type de besoin</label>
+              <select id="besoin" class="sim-input" required>
+                <option value="">Choisir une option</option>
+                <option value="depannage">Dépannage urgent</option>
+                <option value="renovation">Rénovation électrique</option>
+                <option value="borne">Borne de recharge VE</option>
+                <option value="domotique">Domotique &amp; éclairage</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-bold text-carbon mb-2">Type de bien</label>
+              <select id="bien" class="sim-input" required>
+                <option value="">Choisir une option</option>
+                <option value="appartement">Appartement</option>
+                <option value="maison">Maison individuelle</option>
+                <option value="local">Local professionnel</option>
+              </select>
+            </div>
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm font-bold text-carbon mb-2">Code postal</label>
+                <input id="postal" type="text" placeholder="ex: 4000" class="sim-input" required>
+              </div>
+              <div>
+                <label class="block text-sm font-bold text-carbon mb-2">Surface (m²)</label>
+                <input id="surface" type="number" placeholder="ex: 120" min="20" max="1000" class="sim-input" required>
+              </div>
+            </div>
+            <button type="button" class="btn-yellow w-full py-4 text-lg font-semibold" id="btnCalcul">Calculer ma fourchette</button>
+          </form>
+        </div>
 
-      function scrollToSection(id) {
-        const target = document.getElementById(id);
-        if (target) {
-          const offset = 80;
-          const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
-          window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+        <div class="result-card reveal stagger-2">
+          <p class="text-xs font-bold uppercase tracking-widest text-slate mb-4">Fourchette estimée</p>
+          <div id="prixAffichage" class="text-4xl font-bold text-carbon tabular-nums mb-2">— €</div>
+          <p id="prixDetail" class="text-sm text-slate leading-relaxed mb-6">Saisissez vos critères pour voir le prix.</p>
+          <button class="btn-black w-full py-4 text-lg font-semibold" id="btnDemande">Envoyer ma demande</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TEMOIGNAGES ================= -->
+  <section id="temoignages" class="bg-carbon-light py-24 md:py-32">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <p class="text-xs font-bold uppercase tracking-widest text-slate mb-4">Avis clients</p>
+        <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-carbon letter-tight">Ce qu’ils disent de nous</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <article class="reveal stagger-1">
+          <div class="flex items-center gap-2 text-yellow mb-4" aria-label="Note 5 sur 5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <p class="text-sm text-slate leading-relaxed mb-5">« Intervention rapide et chantier laissé parfaitement propre. Le technicien a pris le temps d’expliquer chaque étape avant de commencer. »</p>
+          <p class="text-xs font-bold text-carbon">Mme Muller · Esch-sur-Alzette</p>
+          <p class="text-xs text-slate">Mars 2026</p>
+        </article>
+        <article class="reveal stagger-2">
+          <div class="flex items-center gap-2 text-yellow mb-4" aria-label="Note 5 sur 5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <p class="text-sm text-slate leading-relaxed mb-5">« Notre nouveau tableau électrique est installé conformément aux normes ILR. Respect des délais, équipe sérieuse. »</p>
+          <p class="text-xs font-bold text-carbon">M. Klein · Dudelange</p>
+          <p class="text-xs text-slate">Février 2026</p>
+        </article>
+        <article class="reveal stagger-3">
+          <div class="flex items-center gap-2 text-yellow mb-4" aria-label="Note 5 sur 5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          </div>
+          <p class="text-sm text-slate leading-relaxed mb-5">« La domotique fonctionne parfaitement avec le smartphone. Les volets s’ouvrent seuls le matin — un vrai confort au quotidien. »</p>
+          <p class="text-xs font-bold text-carbon">Famille Weir · Strassen</p>
+          <p class="text-xs text-slate">Janvier 2026</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-carbon text-white py-20 md:py-28">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid md:grid-cols-4 gap-12 mb-12">
+      <div class="col-span-2 md:col-span-1">
+        <a href="#" class="flex items-center gap-1.5 mb-6" aria-label="VOLT &amp; CO — Accueil">
+          <span class="text-xs font-bold tracking-widest text-yellow uppercase">VOLT</span>&amp;<span class="text-xs font-bold tracking-widest text-white uppercase">CO</span>
+          <span class="inline-block w-2 h-2 rounded-full bg-yellow mt-0.5"></span>
+        </a>
+        <p class="text-sm text-white/60 leading-relaxed mb-4">12 Route de Thionville, 4000 Esch-sur-Alzette, Grand-Duché de Luxembourg</p>
+        <p class="text-sm text-white/60">+352 26 54 89 10</p>
+        <p class="text-sm text-white/60">contact@voltco.lu</p>
+      </div>
+      <div>
+        <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-xs">Liens</h4>
+        <ul class="space-y-3 text-sm text-white/60">
+          <li><a href="#services" class="hover:text-yellow transition-colors">Services</a></li>
+          <li><a href="#realisations" class="hover:text-yellow transition-colors">Réalisations</a></li>
+          <li><a href="#temoignages" class="hover:text-yellow transition-colors">Avis clients</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-xs">Horaires</h4>
+        <ul class="space-y-3 text-sm text-white/60">
+          <li>Lundi – Vendredi : 8h00 – 19h00</li>
+          <li>Samedi : 9h00 – 13h00</li>
+          <li>Urgence 7j/7 : +352 26 54 89 10</li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-bold text-white mb-6 uppercase tracking-wider text-xs">Zone d’intervention</h4>
+        <ul class="space-y-3 text-sm text-white/60">
+          <li>Esch-sur-Alzette</li>
+          <li>Luxembourg-ville</li>
+          <li>Dudelange · Strassen</li>
+          <li>Bettembourg · Differdange</li>
+        </ul>
+      </div>
+    </div>
+    <div class="pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-xs text-white/50">© 2026 VOLT &amp; CO — Électricité Générale &amp; Domotique. Tous droits réservés.</p>
+      <p class="text-xs text-white/50">Conformité RGI · Garantie décennale · Membre Qualifelec</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---- Reveal on scroll (IntersectionObserver + safety fallbacks) ----
+  const reveals = document.querySelectorAll('.reveal');
+  function revealAll() { reveals.forEach(el => el.classList.add('visible')); }
+
+  if (!prefersReduced && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
         }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -90px 0px' });
+    reveals.forEach(el => io.observe(el));
+
+    // Safety: reveal everything after 3s so fast scrollers never see blank content
+    setTimeout(revealAll, 3000);
+  } else {
+    revealAll();
+  }
+
+  // Re-run reveal on pageshow (bfcache / back-forward)
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted) revealAll();
+  });
+
+  // ---- Header ----
+  const header = document.querySelector('[data-header]');
+  let hTimer;
+  window.addEventListener('scroll', () => {
+    clearTimeout(hTimer);
+    hTimer = setTimeout(() => {
+      if (window.scrollY > 60) header.classList.add('shadow-xl');
+      else header.classList.remove('shadow-xl');
+    }, 10);
+  }, { passive: true });
+
+  // ---- Mobile menu ----
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  const closeBtn = document.getElementById('closeMobileMenu');
+  let menuOpen = false;
+
+  function toggleMenu() {
+    menuOpen = !menuOpen;
+    menuBtn.setAttribute('aria-expanded', menuOpen);
+    mobileMenu.classList.toggle('hidden', !menuOpen);
+    document.body.style.overflow = menuOpen ? 'hidden' : '';
+  }
+  menuBtn.addEventListener('click', toggleMenu);
+  closeBtn.addEventListener('click', toggleMenu);
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleMenu));
+
+  // ---- Smooth scroll anchors ----
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        const headerH = 80;
+        const pos = target.getBoundingClientRect().top + window.pageYOffset - headerH;
+        window.scrollTo({ top: pos, behavior: 'smooth' });
       }
+    });
+  });
 
-      function setupScrollReveal() {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) {
-          document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-          return;
-        }
+  // ---- Simulateur ----
+  const besoins = {
+    depannage: { base: [150, 350], surface: [0, 0], bien: [1, 1, 1] },
+    renovation: { base: [2200, 5500], surface: [0.6, 1.4], bien: [0.9, 1, 1.2] },
+    borne: { base: [900, 1600], surface: [0, 0], bien: [1, 1, 1] },
+    domotique: { base: [2800, 7500], surface: [0.5, 1.5], bien: [0.9, 1, 1.3] },
+  };
+  const bienIdx = { appartement: 0, maison: 1, local: 2 };
 
-        const observer = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
-              observer.unobserve(entry.target);
-            }
-          });
-        }, {
-          threshold: 0.1,
-          rootMargin: '0px 0px -50px 0px'
-        });
+  function fmt(n) { return n.toLocaleString('fr-FR'); }
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-      }
+  function calculer() {
+    const besoin = document.getElementById('besoin').value;
+    const bien = document.getElementById('bien').value;
+    const surface = parseInt(document.getElementById('surface').value, 10) || 0;
+    if (!besoin || !bien || surface < 20) return;
 
-      function setupCounters() {
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        const counters = document.querySelectorAll('.counter-digit');
-        const rings = document.querySelectorAll('.stat-ring circle:last-of-type');
+    const cfg = besoins[besoin];
+    const min = Math.round((cfg.base[0] + cfg.surface[0] * surface) * cfg.bien[bienIdx[bien]] / 100) * 100;
+    const max = Math.round((cfg.base[1] + cfg.surface[1] * surface) * cfg.bien[bienIdx[bien]] / 100) * 100;
 
-        const counterObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              const counter = entry.target;
-              const target = parseFloat(counter.dataset.target);
-              const suffix = counter.dataset.suffix || '';
-              const span = counter.querySelector('span');
-              const ring = counter.closest('.relative').querySelector('.stat-ring circle:last-of-type');
+    document.getElementById('prixAffichage').textContent = fmt(min) + ' – ' + fmt(max) + ' €';
+    document.getElementById('prixDetail').textContent =
+      'Estimation indicative pour ' + besoin + ' sur ' + surface + ' m², hors déplacement et TVA. Devis détaillé sous 24h.';
+  }
 
-              if (prefersReducedMotion) {
-                span.textContent = target + suffix;
-                if (ring) ring.style.strokeDashoffset = '0';
-              } else {
-                animateCounter(span, 0, target, 1500, suffix);
-                if (ring) animateRing(ring, target);
-              }
-              counterObserver.unobserve(counter);
-            }
-          });
-        }, { threshold: 0.3 });
+  const btnCalcul = document.getElementById('btnCalcul');
+  const btnDemande = document.getElementById('btnDemande');
+  const simulateur = document.getElementById('simulateur');
 
-        counters.forEach(c => counterObserver.observe(c));
-      }
+  simulateur.addEventListener('input', calculer);
+  btnCalcul.addEventListener('click', calculer);
 
-      function animateCounter(element, start, end, duration, suffix) {
-        const startTime = performance.now();
-        const isDecimal = end % 1 !== 0;
+  btnDemande.addEventListener('click', () => {
+    const besoin = document.getElementById('besoin').value;
+    const bien = document.getElementById('bien').value;
+    const postal = document.getElementById('postal').value;
+    const surface = document.getElementById('surface').value;
+    const prix = document.getElementById('prixAffichage').textContent;
 
-        function update(currentTime) {
-          const elapsed = currentTime - startTime;
-          const progress = Math.min(elapsed / duration, 1);
-          const eased = 1 - Math.pow(1 - progress, 3);
-          const current = start + (end - start) * eased;
-          element.textContent = isDecimal ? current.toFixed(1) + suffix : Math.floor(current) + suffix;
-          if (progress < 1) {
-            requestAnimationFrame(update);
-          }
-        }
-        requestAnimationFrame(update);
-      }
+    if (!besoin || !bien || !postal || !surface || prix === '— €') {
+      showToast('Veuillez remplir tous les champs.');
+      return;
+    }
 
-      function animateRing(ring, target) {
-        const circumference = 339;
-        const maxTarget = 500;
-        const progress = Math.min(target / maxTarget, 1);
-        const offset = circumference * (1 - progress);
-        ring.style.strokeDashoffset = offset;
-      }
+    btnDemande.textContent = 'Envoi…';
+    btnDemande.disabled = true;
+    setTimeout(() => {
+      btnDemande.textContent = 'Demande envoyée';
+      btnDemande.classList.remove('btn-black');
+      btnDemande.classList.add('btn-border');
+      showToast('Votre demande a été transmise. Nous vous rappelons sous 24h.');
+    }, 900);
+  });
 
-      function setupComparisonSliders() {
-        const sliders = document.querySelectorAll('.comparison-slider');
+  // ---- Toast ----
+  const toast = document.createElement('div');
+  toast.id = 'toast';
+  toast.className = 'fixed bottom-6 right-6 z-50 glass-badge px-6 py-4 rounded-xl shadow-xl hidden flex items-center gap-3 transform translate-y-10 opacity-0 transition-all duration-400';
+  toast.innerHTML =
+    '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><span id="toastMsg" class="text-sm font-medium text-carbon"></span>';
+  document.body.appendChild(toast);
 
-        sliders.forEach(slider => {
-          const before = slider.querySelector('.comparison-before');
-          const handle = slider.querySelector('.comparison-handle');
-          let isDragging = false;
+  function showToast(msg) {
+    document.getElementById('toastMsg').textContent = msg;
+    toast.classList.remove('hidden');
+    requestAnimationFrame(() => {
+      toast.classList.remove('translate-y-10', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+    });
+    setTimeout(() => {
+      toast.classList.remove('translate-y-0', 'opacity-100');
+      toast.classList.add('translate-y-10', 'opacity-0');
+      setTimeout(() => toast.classList.add('hidden'), 400);
+    }, 3500);
+  }
 
-          function updatePosition(clientX) {
-            const rect = slider.getBoundingClientRect();
-            let x = clientX - rect.left;
-            x = Math.max(0, Math.min(rect.width, x));
-            const percent = (x / rect.width) * 100;
-            before.style.width = percent + '%';
-            handle.style.left = percent + '%';
-          }
+  // ---- Lazy load hero image fallback ----
+  const heroImg = document.querySelector('#hero img');
+  if (heroImg) {
+    heroImg.decoding = 'async';
+    heroImg.loading = 'lazy';
+  }
+})();
+</script>
 
-          function onMove(e) {
-            if (!isDragging) return;
-            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
-            updatePosition(clientX);
-          }
-
-          function onUp() {
-            isDragging = false;
-            document.removeEventListener('mousemove', onMove);
-            document.removeEventListener('mouseup', onUp);
-            document.removeEventListener('touchmove', onMove);
-            document.removeEventListener('touchend', onUp);
-          }
-
-          slider.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            updatePosition(e.clientX);
-            document.addEventListener('mousemove', onMove);
-            document.addEventListener('mouseup', onUp);
-          });
-
-          slider.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            updatePosition(e.touches[0].clientX);
-            document.addEventListener('touchmove', onMove, { passive: true });
-            document.addEventListener('touchend', onUp);
-          });
-
-          handle.addEventListener('keydown', (e) => {
-            const rect = slider.getBoundingClientRect();
-            const currentLeft = parseFloat(handle.style.left) || 50;
-            let newLeft = currentLeft;
-            if (e.key === 'ArrowLeft') newLeft = Math.max(0, currentLeft - 5);
-            else if (e.key === 'ArrowRight') newLeft = Math.min(100, currentLeft + 5);
-            else if (e.key === 'Home') newLeft = 0;
-            else if (e.key === 'End') newLeft = 100;
-            else return;
-            e.preventDefault();
-            before.style.width = newLeft + '%';
-            handle.style.left = newLeft + '%';
-          });
-
-          slider.addEventListener('click', (e) => {
-            if (e.target === handle) return;
-            updatePosition(e.clientX);
-          });
-        });
-      }
-
-      function setupGalleryFilter() {
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        const items = document.querySelectorAll('.gallery-item');
-
-        filterBtns.forEach(btn => {
-          btn.addEventListener('click', () => {
-            const filter = btn.dataset.filter;
-
-            filterBtns.forEach(b => {
-              b.classList.remove('active');
-              b.setAttribute('aria-selected', 'false');
-            });
-            btn.classList.add('active');
-            btn.setAttribute('aria-selected', 'true');
-
-            items.forEach((item, index) => {
-              const categories = item.dataset.category.split(' ');
-              const matches = filter === 'all' || categories.includes(filter);
-
-              if (matches) {
-                item.classList.remove('hidden');
-                setTimeout(() => {
-                  item.classList.add('visible');
-                }, index * 50);
-              } else {
-                item.classList.remove('visible');
-                setTimeout(() => {
-                  item.classList.add('hidden');
-                }, 300);
-              }
-            });
-          });
-        });
-      }
-
-      function setupServiceCards() {
-        const cards = document.querySelectorAll('.bento-card[data-service]');
-        cards.forEach(card => {
-          card.addEventListener('click', () => {
-            const service = card.dataset.service;
-            scrollToSection('devis');
-            setTimeout(() => {
-              const radio = document.querySelector(`input[name="projectType"][value="${service}"]`);
-              if (radio) {
-                radio.checked = true;
-                radio.dispatchEvent(new Event('change', { bubbles: true }));
-                updateStepSelection();
-              }
-            }, 500);
-          });
-          card.style.cursor = 'pointer';
-        });
-      }
-
-      function setupQuoteForm() {
-        const steps = ['step1', 'step2', 'step3'];
-        const panels = steps.map(s => document.getElementById(s + '-panel'));
-        const indicators = steps.map(s => document.getElementById(s + '-tab'));
-        const lines = ['line1', 'line2'].map(l => document.getElementById(l));
-
-        function showStep(step) {
-          currentStep = step;
-          steps.forEach((s, i) => {
-            const isActive = i + 1 === step;
-            const isCompleted = i + 1 < step;
-            panels[i].classList.toggle('hidden', !isActive);
-            indicators[i].classList.toggle('active', isActive);
-            indicators[i].classList.toggle('completed', isCompleted);
-            indicators[i].setAttribute('aria-selected', isActive);
-            if (i < lines.length) {
-              lines[i].classList.toggle('completed', isCompleted);
-            }
-          });
-        }
-
-        function updateStepSelection() {
-          const selected = document.querySelector('input[name="projectType"]:checked');
-          if (selected) {
-            const choice = selected.closest('[data-choice]');
-            document.querySelectorAll('[data-choice]').forEach(c => c.classList.remove('ring-2', 'ring-electric-yellow', 'border-electric-yellow'));
-            if (choice) choice.classList.add('ring-2', 'ring-electric-yellow', 'border-electric-yellow');
-          }
-        }
-
-        document.querySelectorAll('input[name="projectType"]').forEach(radio => {
-          radio.addEventListener('change', updateStepSelection);
-        });
-
-        document.getElementById('nextStep1').addEventListener('click', () => {
-          const selected = document.querySelector('input[name="projectType"]:checked');
-          if (selected) showStep(2);
-          else showToast('Veuillez sélectionner un type de projet');
-        });
-
-        document.getElementById('nextStep2').addEventListener('click', () => {
-          const surface = document.getElementById('surface').value;
-          const timeline = document.getElementById('timeline').value;
-          const budget = document.getElementById('budget').value;
-          const address = document.getElementById('address').value;
-          if (surface && timeline && budget && address) showStep(3);
-          else showToast('Veuillez remplir tous les champs');
-        });
-
-        document.getElementById('prevStep2').addEventListener('click', () => showStep(1));
-        document.getElementById('prevStep3').addEventListener('click', () => showStep(2));
-
-        quoteForm.addEventListener('submit', async (e) => {
-          e.preventDefault();
-          const submitBtn = quoteForm.querySelector('button[type="submit"]');
-          const originalText = submitBtn.textContent;
-          submitBtn.textContent = 'Envoi...';
-          submitBtn.disabled = true;
-
-          await new Promise(r => setTimeout(r, 1000));
-
-          quoteForm.classList.add('hidden');
-          successMessage.classList.remove('hidden');
-          submitBtn.textContent = originalText;
-          submitBtn.disabled = false;
-          showToast('Demande envoyée avec succès !');
-        });
-
-        newQuoteBtn.addEventListener('click', () => {
-          quoteForm.reset();
-          quoteForm.classList.remove('hidden');
-          successMessage.classList.add('hidden');
-          showStep(1);
-          updateStepSelection();
-        });
-
-        indicators.forEach((indicator, index) => {
-          indicator.addEventListener('click', () => {
-            if (index + 1 <= currentStep) showStep(index + 1);
-          });
-        });
-
-        window.showStep = showStep;
-        window.updateStepSelection = updateStepSelection;
-      }
-
-      function setupLoadMore() {
-        let loaded = 6;
-        loadMore.addEventListener('click', () => {
-          showToast('Chargement des projets supplémentaires...');
-          loadMore.disabled = true;
-          setTimeout(() => {
-            loadMore.disabled = false;
-            showToast('Tous les projets sont affichés');
-          }, 1000);
-        });
-      }
-
-      function showToast(message) {
-        toastMessage.textContent = message;
-        toast.classList.add('show');
-        setTimeout(() => toast.classList.remove('show'), 4000);
-      }
-
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', init);
-      } else {
-        init();
-      }
-    })();
-  </script>
 </body>
 </html>
