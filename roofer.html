@@ -465,6 +465,14 @@
       width: 100vw;
       max-width: none;
     }
+
+    /* Scroll indicator bounce */
+    @keyframes bounce-slow {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+    .animate-bounce-slow { animation: bounce-slow 2s infinite ease-in-out; }
+    .photo-frame img { opacity: 1; }
   </style>
 </head>
 <body class="bg-cream text-charcoal font-jakarta antialiased noise-overlay">
@@ -518,7 +526,7 @@
   <section id="hero" class="relative overflow-hidden" aria-labelledby="hero-title">
     <!-- Full viewport hero photo -->
     <div class="hero-photo full-bleed -mt-40 md:-mt-56" style="height: 100vh; min-height: 700px; max-height: 900px;">
-      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=85" alt="Maison contemporaine avec toiture en ardoise et isolation performante, Luxembourg" class="w-full h-full object-cover" loading="eager" decoding="async" fetchpriority="high">
+      <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1920&q=85" alt="Couvreur posant des ardoises naturelles sur toiture" class="w-full h-full object-cover" loading="eager" decoding="async" fetchpriority="high">
       <!-- Gradient overlay for text legibility -->
       <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" aria-hidden="true"></div>
     </div>
@@ -578,10 +586,10 @@
   </section>
 
   <!-- ================= PHOTO BAND 1 - FULL BLEED ================= -->
-  <section class="relative" aria-label="Chantier en cours">
+  <section class="relative" aria-label="Pose ardoise sur chantier">
     <div class="full-bleed">
       <figure class="photo-frame" style="height: 60vh; min-height: 400px; max-height: 600px; border-radius: 0;">
-        <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1920&q=85" alt="Détail pose ardoise naturelle sur chantier" class="w-full h-full object-cover" loading="lazy" decoding="async">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4a0d4?w=1920&q=85" alt="Détail pose ardoise naturelle, fixation inox" class="w-full h-full object-cover" loading="lazy" decoding="async">
         <div class="photo-overlay" aria-hidden="true"></div>
         <figcaption class="photo-content">
           <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-2">Sur le terrain</p>
@@ -701,10 +709,10 @@
   </section>
 
   <!-- ================= PHOTO BAND 2 - FULL BLEED ================= -->
-  <section class="relative" aria-label="Zinguerie sur mesure">
+  <section class="relative" aria-label="Zinguerie cuivre sur mesure">
     <div class="full-bleed">
       <figure class="photo-frame" style="height: 60vh; min-height: 400px; max-height: 600px; border-radius: 0;">
-        <img src="https://images.unsplash.com/photo-1600585154526-990dced4a0d4?w=1920&q=85" alt="Zinguerie cuivre gouttières chéneaux sur mesure" class="w-full h-full object-cover" loading="lazy" decoding="async">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1920&q=85" alt="Zinguerie cuivre gouttières chéneaux faîtières soudure étain" class="w-full h-full object-cover" loading="lazy" decoding="async">
         <div class="photo-overlay" aria-hidden="true"></div>
         <figcaption class="photo-content">
           <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-2">Savoir-faire</p>
@@ -789,10 +797,10 @@
   </section>
 
   <!-- ================= PHOTO BAND 3 - FULL BLEED ================= -->
-  <section class="relative" aria-label="Isolation sarking">
+  <section class="relative" aria-label="Isolation sarking laine de bois">
     <div class="full-bleed">
       <figure class="photo-frame" style="height: 60vh; min-height: 400px; max-height: 600px; border-radius: 0;">
-        <img src="https://images.unsplash.com/photo-1613976824854-3f31e6c7e7d5?w=1920&q=85" alt="Isolation laine de bois sarking toiture" class="w-full h-full object-cover" loading="lazy" decoding="async">
+        <img src="https://images.unsplash.com/photo-1613976824854-3f31e6c7e7d5?w=1920&q=85" alt="Isolation sarking laine de bois fibre de bois toiture" class="w-full h-full object-cover" loading="lazy" decoding="async">
         <div class="photo-overlay" aria-hidden="true"></div>
         <figcaption class="photo-content">
           <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-2">Performance thermique</p>
@@ -880,10 +888,10 @@
   </section>
 
   <!-- ================= PHOTO BAND 4 - FULL BLEED ================= -->
-  <section class="relative" aria-label="Fenêtre de toit Velux">
+  <section class="relative" aria-label="Fenêtre de toit Velux motorisée">
     <div class="full-bleed">
       <figure class="photo-frame" style="height: 60vh; min-height: 400px; max-height: 600px; border-radius: 0;">
-        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1920&q=85" alt="Fenêtre de toit Velux motorisée solaire" class="w-full h-full object-cover" loading="lazy" decoding="async">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1920&q=85" alt="Fenêtre de toit Velux motorisée solaire store intégré" class="w-full h-full object-cover" loading="lazy" decoding="async">
         <div class="photo-overlay" aria-hidden="true"></div>
         <figcaption class="photo-content">
           <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-2">Lumière naturelle</p>
@@ -1192,7 +1200,7 @@
   });
 
   // ---- Smooth scroll anchors ----
-  document.queryquerSelectorAll('a[href^="#"]').forEach(anchor => {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
@@ -1302,14 +1310,5 @@
   }
 })();
 </script>
-
-<style>
-  @keyframes bounce-slow {
-    0%, 100% { transform: translateX(-50%) translateY(0); }
-    50% { transform: translateX(-50%) translateY(8px); }
-  }
-  .animate-bounce-slow { animation: bounce-slow 2s infinite ease-in-out; }
-  .photo-frame img { opacity: 1; }
-</style>
 </body>
 </html>
