@@ -37,7 +37,6 @@
             'ambient': '0 2px 8px -2px rgba(10,10,10,0.04), 0 8px 24px -8px rgba(10,10,10,0.06)',
             'ambient-lg': '0 4px 16px -4px rgba(10,10,10,0.05), 0 20px 48px -12px rgba(10,10,10,0.08)',
             'ambient-xl': '0 8px 32px -8px rgba(10,10,10,0.06), 0 32px 96px -16px rgba(10,10,10,0.10)',
-            'terracotta-glow': '0 0 0 1px rgba(196,107,46,0.15), 0 8px 32px -8px rgba(196,107,46,0.25)',
             'inner-glow': 'inset 0 1px 1px rgba(255,255,255,0.6), inset 0 -1px 1px rgba(10,10,10,0.03)',
           },
           borderRadius: {
@@ -243,31 +242,6 @@
     .nav-link:hover::after { width: 100%; }
     .nav-link:hover { color: #C46B2E; }
 
-    /* Status badge */
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: #FDFBF7;
-      border: 1px solid rgba(10,10,10,0.06);
-      backdrop-filter: saturate(180%) blur(12px);
-      border-radius: 100px;
-      box-shadow: 0 8px 32px -12px rgba(10,10,10,0.08);
-      padding: 10px 16px;
-    }
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #8B6B4A;
-      box-shadow: 0 0 0 0 rgba(139,107,74,0.5);
-      animation: dot-pulse 2.5s infinite;
-    }
-    @keyframes dot-pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(139,107,74,0.4); }
-      50% { box-shadow: 0 0 0 10px rgba(139,107,74,0); }
-    }
-
     /* Reveal animations - SPRING-BASED */
     .reveal {
       opacity: 0;
@@ -282,6 +256,56 @@
     .stagger-5 { transition-delay: 400ms; }
     .stagger-6 { transition-delay: 480ms; }
 
+    /* Photo frame - full bleed, spring hover */
+    .photo-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 2rem;
+      background: #0A0A0A;
+    }
+    .photo-frame img {
+      transition: transform 1000ms cubic-bezier(0.32, 0.72, 0, 1), opacity 400ms ease;
+      transform-origin: center;
+    }
+    .photo-frame:hover img {
+      transform: scale(1.08);
+    }
+    .photo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,10,10,0) 30%, rgba(10,10,10,0.85) 100%);
+      opacity: 0;
+      transition: opacity 500ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .photo-frame:hover .photo-overlay { opacity: 1; }
+    .photo-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 32px;
+      transform: translateY(24px);
+      opacity: 0;
+      transition: all 600ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .photo-frame:hover .photo-content {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* Hero photo - full viewport */
+    .hero-photo {
+      position: relative;
+      border-radius: 0;
+      overflow: hidden;
+    }
+    .hero-photo img {
+      transition: transform 1200ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+    .hero-photo:hover img {
+      transform: scale(1.03);
+    }
+
     /* Service cards - spring hover */
     .service-card {
       transition: all 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -295,42 +319,6 @@
     .service-card:hover .icon-stroke polyline,
     .service-card:hover .icon-stroke circle {
       stroke: #C46B2E;
-    }
-
-    /* Gallery items */
-    .gallery-item {
-      position: relative;
-      overflow: hidden;
-      border-radius: 2rem;
-      background: #0A0A0A;
-    }
-    .gallery-item img {
-      transition: transform 800ms cubic-bezier(0.32, 0.72, 0, 1), opacity 400ms ease;
-    }
-    .gallery-item:hover img {
-      transform: scale(1.06);
-    }
-    .gallery-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(10,10,10,0) 40%, rgba(10,10,10,0.7) 100%);
-      opacity: 0;
-      transition: opacity 400ms cubic-bezier(0.32, 0.72, 0, 1);
-    }
-    .gallery-item:hover .gallery-overlay { opacity: 1; }
-    .gallery-content {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 24px;
-      transform: translateY(20px);
-      opacity: 0;
-      transition: all 500ms cubic-bezier(0.32, 0.72, 0, 1);
-    }
-    .gallery-item:hover .gallery-content {
-      transform: translateY(0);
-      opacity: 1;
     }
 
     /* Form inputs */
@@ -456,7 +444,6 @@
         scroll-behavior: auto !important;
       }
       .reveal { opacity: 1; transform: none; }
-      .status-dot { animation: none; }
     }
 
     /* Focus visible for keyboard navigation */
@@ -469,6 +456,14 @@
       header, footer, .mobile-menu, button { display: none !important; }
       main { padding-top: 0 !important; }
       .reveal { opacity: 1 !important; transform: none !important; }
+    }
+
+    /* Full bleed utility */
+    .full-bleed {
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+      width: 100vw;
+      max-width: none;
     }
   </style>
 </head>
@@ -519,29 +514,32 @@
 
 <main class="pt-40 md:pt-56">
 
-  <!-- ================= HERO ================= -->
-  <section id="hero" class="relative overflow-hidden bg-cream-warm" aria-labelledby="hero-title">
-    <!-- Decorative gradient orbs - subtle, fixed -->
-    <div class="absolute -top-1/2 -right-1/4 w-[600px] h-[600px] rounded-full bg-terracotta/5 blur-3xl pointer-events-none" aria-hidden="true"></div>
-    <div class="absolute bottom-1/4 -left-1/4 w-[500px] h-[500px] rounded-full bg-clay/5 blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <!-- ================= HERO - FULL BLEED PHOTO ================= -->
+  <section id="hero" class="relative overflow-hidden" aria-labelledby="hero-title">
+    <!-- Full viewport hero photo -->
+    <div class="hero-photo full-bleed -mt-40 md:-mt-56" style="height: 100vh; min-height: 700px; max-height: 900px;">
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1920&q=85" alt="Maison contemporaine avec toiture en ardoise et isolation performante, Luxembourg" class="w-full h-full object-cover" loading="eager" decoding="async" fetchpriority="high">
+      <!-- Gradient overlay for text legibility -->
+      <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" aria-hidden="true"></div>
+    </div>
 
-    <div class="max-w-7xl mx-auto px-6 relative z-10">
-      <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center py-24 md:py-40 lg:py-56">
-        <div class="max-w-xl">
-          <div class="status-badge reveal stagger-1 w-fit" role="status" aria-live="polite">
+    <!-- Floating content card over photo -->
+    <div class="relative max-w-7xl mx-auto px-6 -mt-40 md:-mt-56 z-10">
+      <div class="outer-shell reveal stagger-1" style="max-width: 640px;">
+        <div class="inner-core p-8 md:p-12">
+          <div class="status-badge w-fit mb-8" role="status" aria-live="polite">
             <span class="status-dot" aria-hidden="true"></span>
-            <span class="text-xs font-semibold tracking-wider text-charcoal uppercase">Intervention 7j/7 · Luxembourg</span>
+            <span class="text-xs font-semibold tracking-wider text-charcoal uppercase">Couvreur-zingueur · Luxembourg depuis 2009</span>
           </div>
-          <h1 id="hero-title" class="font-editorial text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-charcoal letter-tighter leading-[0.95] mb-8 reveal stagger-2 text-balance">
+          <h1 id="hero-title" class="font-editorial text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-medium text-charcoal letter-tighter leading-[0.92] mb-6 text-balance">
             La toiture qui
             <br>
             <span class="text-terracotta">traverse le temps.</span>
           </h1>
-          <p class="text-lg md:text-xl text-stone leading-relaxed max-w-lg mb-12 reveal stagger-3 text-pretty">
-            Couverture, zinguerie et isolation haute performance pour particuliers et architectes. 
-            Devis détaillé sous 48h. Garantie décennale incluse.
+          <p class="text-lg md:text-xl text-stone leading-relaxed max-w-lg mb-10 text-pretty">
+            Couverture, zinguerie et isolation haute performance. Devis détaillé sous 48h. Garantie décennale incluse.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 reveal stagger-4">
+          <div class="flex flex-col sm:flex-row gap-4">
             <button class="btn-terracotta px-9 py-4.5 text-lg font-semibold flex items-center gap-3 w-full sm:w-auto justify-center" aria-label="Obtenir un devis gratuit">
               Estimer mon projet
               <span class="btn-icon-wrapper" aria-hidden="true">
@@ -550,7 +548,7 @@
             </button>
             <button class="btn-ghost px-9 py-4.5 text-lg font-medium w-full sm:w-auto" aria-label="Voir nos réalisations">Voir nos chantiers</button>
           </div>
-          <div class="mt-16 reveal stagger-5 flex flex-wrap items-center gap-8 text-sm">
+          <div class="mt-12 flex flex-wrap items-center gap-8 text-sm border-t border-warm pt-8">
             <div class="flex items-center gap-2">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C46B2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path></svg>
               <span class="font-medium text-charcoal">15 ans</span>
@@ -568,45 +566,34 @@
             </div>
           </div>
         </div>
-
-        <div class="relative reveal stagger-1">
-          <!-- Z-axis cascade: stacked images with subtle rotation -->
-          <div class="relative h-[580px] md:h-[680px] lg:h-[740px]">
-            <!-- Back layer -->
-            <figure class="absolute -bottom-6 -left-8 w-[320px] md:w-[380px] h-[320px] md:h-[380px] rounded-2xl overflow-hidden shadow-ambient-xl opacity-60 rotate-[-3deg] transition-all duration-700 ease-fluid">
-              <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=85" alt="Toiture en ardoise naturelle, détail de la pose" class="w-full h-full object-cover" loading="lazy" decoding="async">
-            </figure>
-            <!-- Middle layer -->
-            <figure class="absolute bottom-4 left-1/2 -translate-x-1/2 w-[380px] md:w-[440px] h-[380px] md:h-[440px] rounded-2xl overflow-hidden shadow-ambient-xl rotate-[1deg] transition-all duration-700 ease-fluid z-10">
-              <img src="https://images.unsplash.com/photo-1600585154526-990dced4a0d4?w=900&q=85" alt="Zinguerie en cuivre, gouttières et chéneaux sur mesure" class="w-full h-full object-cover" loading="lazy" decoding="async">
-            </figure>
-            <!-- Front layer - main hero image -->
-            <figure class="relative w-full h-full max-w-xl mx-auto rounded-2xl overflow-hidden shadow-ambient-xl z-20 transition-all duration-700 ease-fluid">
-              <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85" alt="Maison contemporaine avec toiture en ardoise et isolation performante, Luxembourg" class="w-full h-full object-cover" loading="eager" decoding="async" fetchpriority="high">
-              <!-- Floating badge -->
-              <div class="absolute -bottom-8 -right-8 w-72 md:w-80 status-badge px-6 py-5 shadow-ambient-lg" role="status">
-                <div class="flex items-center gap-3 mb-2">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C46B2E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-                  <span class="text-xs font-semibold text-charcoal uppercase tracking-wider">Note 4.9/5</span>
-                </div>
-                <p class="text-[10px] text-stone uppercase tracking-wider">87 avis clients certifiés</p>
-              </div>
-            </figure>
-          </div>
-        </div>
       </div>
     </div>
 
     <!-- Scroll indicator -->
-    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 reveal stagger-6 animate-bounce-slow" aria-hidden="true">
-      <svg width="28" height="44" viewBox="0 0 28 44" fill="none" stroke="#C46B2E" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 reveal stagger-6 animate-bounce-slow" aria-hidden="true">
+      <svg width="28" height="44" viewBox="0 0 28 44" fill="none" stroke="#FDFBF7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M14 4 L14 36 M8 30 L14 36 L20 30"></path>
       </svg>
     </div>
   </section>
 
+  <!-- ================= PHOTO BAND 1 - FULL BLEED ================= -->
+  <section class="relative" aria-label="Chantier en cours">
+    <div class="full-bleed">
+      <figure class="photo-frame" style="height: 60vh; min-height: 400px; max-height: 600px; border-radius: 0;">
+        <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1920&q=85" alt="Détail pose ardoise naturelle sur chantier" class="w-full h-full object-cover" loading="lazy" decoding="async">
+        <div class="photo-overlay" aria-hidden="true"></div>
+        <figcaption class="photo-content">
+          <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-2">Sur le terrain</p>
+          <p class="font-editorial text-2xl md:text-3xl font-medium text-white mb-2">Pose ardoise d'Angers · Belvaux</p>
+          <p class="text-white/80">Fixation inox, ventilation sous-toiture, respect DTU 40.11</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- ================= SOCIAL PROOF BAR ================= -->
-  <section id="preuves" class="bg-cream py-20 md:py-28 border-y border-warm" aria-labelledby="preuves-title">
+  <section id="preuves" class="bg-cream py-16 md:py-24 border-y border-warm" aria-labelledby="preuves-title">
     <div class="max-w-7xl mx-auto px-6">
       <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 items-center justify-center">
         <div class="text-center reveal stagger-1 relative">
@@ -713,6 +700,21 @@
     </div>
   </section>
 
+  <!-- ================= PHOTO BAND 2 - FULL BLEED ================= -->
+  <section class="relative" aria-label="Zinguerie sur mesure">
+    <div class="full-bleed">
+      <figure class="photo-frame" style="height: 60vh; min-height: 400px; max-height: 600px; border-radius: 0;">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4a0d4?w=1920&q=85" alt="Zinguerie cuivre gouttières chéneaux sur mesure" class="w-full h-full object-cover" loading="lazy" decoding="async">
+        <div class="photo-overlay" aria-hidden="true"></div>
+        <figcaption class="photo-content">
+          <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-2">Savoir-faire</p>
+          <p class="font-editorial text-2xl md:text-3xl font-medium text-white mb-2">Zinguerie cuivre sur mesure · Strassen</p>
+          <p class="text-white/80">Gouttières, chéneaux, faîtières — soudure étain traditionnelle</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
   <!-- ================= PROCESS / METHOD ================= -->
   <section id="process" class="bg-cream py-24 md:py-32 lg:py-40" aria-labelledby="process-title">
     <div class="max-w-7xl mx-auto px-6">
@@ -726,7 +728,6 @@
         </p>
       </div>
       <div class="grid md:grid-cols-4 gap-8">
-        <!-- Step 1 -->
         <article class="outer-shell reveal stagger-1 relative" tabindex="0">
           <div class="inner-core p-8 md:p-10 h-full flex flex-col">
             <div class="flex items-center gap-4 mb-6">
@@ -741,8 +742,6 @@
             </ul>
           </div>
         </article>
-
-        <!-- Step 2 -->
         <article class="outer-shell reveal stagger-2 relative" tabindex="0">
           <div class="inner-core p-8 md:p-10 h-full flex flex-col">
             <div class="flex items-center gap-4 mb-6">
@@ -757,8 +756,6 @@
             </ul>
           </div>
         </article>
-
-        <!-- Step 3 -->
         <article class="outer-shell reveal stagger-3 relative" tabindex="0">
           <div class="inner-core p-8 md:p-10 h-full flex flex-col">
             <div class="flex items-center gap-4 mb-6">
@@ -773,8 +770,6 @@
             </ul>
           </div>
         </article>
-
-        <!-- Step 4 -->
         <article class="outer-shell reveal stagger-4 relative" tabindex="0">
           <div class="inner-core p-8 md:p-10 h-full flex flex-col">
             <div class="flex items-center gap-4 mb-6">
@@ -793,7 +788,22 @@
     </div>
   </section>
 
-  <!-- ================= REALISATIONS / GALLERY ================= -->
+  <!-- ================= PHOTO BAND 3 - FULL BLEED ================= -->
+  <section class="relative" aria-label="Isolation sarking">
+    <div class="full-bleed">
+      <figure class="photo-frame" style="height: 60vh; min-height: 400px; max-height: 600px; border-radius: 0;">
+        <img src="https://images.unsplash.com/photo-1613976824854-3f31e6c7e7d5?w=1920&q=85" alt="Isolation laine de bois sarking toiture" class="w-full h-full object-cover" loading="lazy" decoding="async">
+        <div class="photo-overlay" aria-hidden="true"></div>
+        <figcaption class="photo-content">
+          <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-2">Performance thermique</p>
+          <p class="font-editorial text-2xl md:text-3xl font-medium text-white mb-2">Sarking fibre de bois 240mm · Mersch</p>
+          <p class="text-white/80">RE2020, étanchéité à l'air certifiée, gainable 0.18 W/m²K</p>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ================= REALISATIONS / GALLERY - LARGER ================= -->
   <section id="realisations" class="bg-cream-warm py-24 md:py-32 lg:py-40" aria-labelledby="realisations-title">
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
@@ -808,73 +818,79 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </button>
       </div>
+      <!-- Featured project - large -->
+      <figure class="photo-frame reveal stagger-1 group mb-10" tabindex="0" style="height: 60vh; min-height: 450px; max-height: 650px;">
+        <img src="https://images.unsplash.com/photo-1600585154526-990dced4a0d4?w=1920&q=85" alt="Villa contemporaine Belvaux toiture ardoise zinguerie cuivre" class="w-full h-full object-cover" loading="eager" decoding="async" fetchpriority="high">
+        <div class="photo-overlay" aria-hidden="true"></div>
+        <figcaption class="photo-content">
+          <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-1">Couverture & Zinguerie</p>
+          <p class="font-editorial text-3xl md:text-4xl font-medium text-white mb-2">Villa contemporaine — Belvaux</p>
+          <p class="text-white/80 text-lg">Ardoise naturelle, zinguerie cuivre sur mesure, isolation sarking 240mm</p>
+        </figcaption>
+      </figure>
+      <!-- Grid of projects -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Project 1 -->
-        <figure class="gallery-item reveal stagger-1 group" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1600585154526-990dced4a0d4?w=1000&q=85" alt="Villa contemporaine à Belvaux, toiture ardoise naturelle et zinguerie cuivre" loading="lazy" decoding="async">
-          <div class="gallery-overlay" aria-hidden="true"></div>
-          <figcaption class="gallery-content">
-            <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-1">Couverture & Zinguerie</p>
-            <p class="font-editorial text-xl font-medium text-white mb-1">Villa contemporaine · Belvaux</p>
-            <p class="text-sm text-white/70">Ardoise naturelle, zinguerie cuivre sur mesure, isolation sarking 240mm</p>
-          </figcaption>
-        </figure>
-
-        <!-- Project 2 -->
-        <figure class="gallery-item reveal stagger-2 group" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1000&q=85" alt="Maison de maître à Luxembourg-Ville, rénovation toiture ardoise et isolation" loading="lazy" decoding="async">
-          <div class="gallery-overlay" aria-hidden="true"></div>
-          <figcaption class="gallery-content">
+        <figure class="photo-frame reveal stagger-2 group" tabindex="0" style="height: 45vh; min-height: 350px;">
+          <img src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1200&q=85" alt="Rénovation toiture ardoise maison de maître Luxembourg-Ville" class="w-full h-full object-cover" loading="lazy" decoding="async">
+          <div class="photo-overlay" aria-hidden="true"></div>
+          <figcaption class="photo-content">
             <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-1">Rénovation Patrimoine</p>
-            <p class="font-editorial text-xl font-medium text-white mb-1">Maison de maître · Luxembourg-Ville</p>
-            <p class="text-sm text-white/70">Ardoise d'Angers, faîtière plomb, lucarnes restaurées, isolation laine de bois</p>
+            <p class="font-editorial text-xl font-medium text-white mb-1">Maison de maître — Luxembourg</p>
+            <p class="text-white/70">Ardoise d'Angers, faîtière plomb, lucarnes restaurées</p>
           </figcaption>
         </figure>
-
-        <!-- Project 3 -->
-        <figure class="gallery-item reveal stagger-3 group" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1000&q=85" alt="Extension moderne à Strassen, toiture plate zinc et fenêtre de toit" loading="lazy" decoding="async">
-          <div class="gallery-overlay" aria-hidden="true"></div>
-          <figcaption class="gallery-content">
+        <figure class="photo-frame reveal stagger-3 group" tabindex="0" style="height: 45vh; min-height: 350px;">
+          <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85" alt="Extension moderne Strassen toiture plate zinc velux" class="w-full h-full object-cover" loading="lazy" decoding="async">
+          <div class="photo-overlay" aria-hidden="true"></div>
+          <figcaption class="photo-content">
             <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-1">Zinc & Lumière</p>
-            <p class="font-editorial text-xl font-medium text-white mb-1">Extension moderne · Strassen</p>
-            <p class="text-sm text-white/70">Zinc à joint debout, velux motorisés solaire, étanchéité EPDM</p>
+            <p class="font-editorial text-xl font-medium text-white mb-1">Extension moderne — Strassen</p>
+            <p class="text-white/70">Zinc à joint debout, velux motorisés solaire</p>
           </figcaption>
         </figure>
-
-        <!-- Project 4 -->
-        <figure class="gallery-item reveal stagger-4 group" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1613976824854-3f31e6c7e7d5?w=1000&q=85" alt="Ferme rénovée à Mersch, toiture tuiles terre cuite et isolation ouate" loading="lazy" decoding="async">
-          <div class="gallery-overlay" aria-hidden="true"></div>
-          <figcaption class="gallery-content">
+        <figure class="photo-frame reveal stagger-4 group" tabindex="0" style="height: 45vh; min-height: 350px;">
+          <img src="https://images.unsplash.com/photo-1613976824854-3f31e6c7e7d5?w=1200&q=85" alt="Ferme rénovée Mersch tuiles terre cuite isolation ouate" class="w-full h-full object-cover" loading="lazy" decoding="async">
+          <div class="photo-overlay" aria-hidden="true"></div>
+          <figcaption class="photo-content">
             <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-1">Isolation & Tuiles</p>
-            <p class="font-editorial text-xl font-medium text-white mb-1">Ferme rénovée · Mersch</p>
-            <p class="text-sm text-white/70">Tuiles terre cuite artisanales, ouate de cellulose 300mm, gainable 0.18 W/m²K</p>
+            <p class="font-editorial text-xl font-medium text-white mb-1">Ferme rénovée — Mersch</p>
+            <p class="text-white/70">Tuiles canal artisanales, ouate cellulose 300mm</p>
           </figcaption>
         </figure>
-
-        <!-- Project 5 -->
-        <figure class="gallery-item reveal stagger-5 group" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1000&q=85" alt="Immeuble bureaux à Esch-sur-Alzette, toiture terrasse végétalisée" loading="lazy" decoding="async">
-          <div class="gallery-overlay" aria-hidden="true"></div>
-          <figcaption class="gallery-content">
+        <figure class="photo-frame reveal stagger-5 group" tabindex="0" style="height: 45vh; min-height: 350px;">
+          <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=85" alt="Toiture terrasse végétalisée immeuble Esch-sur-Alzette" class="w-full h-full object-cover" loading="lazy" decoding="async">
+          <div class="photo-overlay" aria-hidden="true"></div>
+          <figcaption class="photo-content">
             <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-1">Toiture Terrasse</p>
-            <p class="font-editorial text-xl font-medium text-white mb-1">Immeuble bureaux · Esch-sur-Alzette</p>
-            <p class="text-sm text-white/70">Étanchéité bitumeuse, végétalisation extensive, isolation PIR 200mm</p>
+            <p class="font-editorial text-xl font-medium text-white mb-1">Immeuble — Esch-sur-Alzette</p>
+            <p class="text-white/70">Étanchéité bitume, végétalisation extensive, PIR 200mm</p>
           </figcaption>
         </figure>
-
-        <!-- Project 6 -->
-        <figure class="gallery-item reveal stagger-6 group" tabindex="0">
-          <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1000&q=85" alt="Pavillon à Dudelange, rénovation complète couverture et zinguerie" loading="lazy" decoding="async">
-          <div class="gallery-overlay" aria-hidden="true"></div>
-          <figcaption class="gallery-content">
+        <figure class="photo-frame reveal stagger-6 group" tabindex="0" style="height: 45vh; min-height: 350px;">
+          <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1200&q=85" alt="Rénovation complète toiture pavillon Dudelange" class="w-full h-full object-cover" loading="lazy" decoding="async">
+          <div class="photo-overlay" aria-hidden="true"></div>
+          <figcaption class="photo-content">
             <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-1">Rénovation Complète</p>
-            <p class="font-editorial text-xl font-medium text-white mb-1">Pavillon · Dudelange</p>
-            <p class="text-sm text-white/70">Tuiles béton, gouttières aluminium, isolation combles perdus, VMI</p>
+            <p class="font-editorial text-xl font-medium text-white mb-1">Pavillon — Dudelange</p>
+            <p class="text-white/70">Tuiles béton, gouttières alu, isolation combles, VMI</p>
           </figcaption>
         </figure>
       </div>
+    </div>
+  </section>
+
+  <!-- ================= PHOTO BAND 4 - FULL BLEED ================= -->
+  <section class="relative" aria-label="Fenêtre de toit Velux">
+    <div class="full-bleed">
+      <figure class="photo-frame" style="height: 60vh; min-height: 400px; max-height: 600px; border-radius: 0;">
+        <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1920&q=85" alt="Fenêtre de toit Velux motorisée solaire" class="w-full h-full object-cover" loading="lazy" decoding="async">
+        <div class="photo-overlay" aria-hidden="true"></div>
+        <figcaption class="photo-content">
+          <p class="text-[10px] font-semibold uppercase tracking-widest text-terracotta/90 mb-2">Lumière naturelle</p>
+          <p class="font-editorial text-2xl md:text-3xl font-medium text-white mb-2">Velux motorisé solaire · Esch-sur-Alzette</p>
+          <p class="text-white/80">Store intégré, capteur pluie, étanchéité périphérique zinc</p>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
@@ -966,7 +982,6 @@
         </h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <!-- Testimonial 1 -->
         <article class="outer-shell reveal stagger-1" tabindex="0">
           <div class="inner-core p-8 md:p-10">
             <div class="flex items-center gap-1.5 mb-6" aria-label="Note 5 sur 5">
@@ -984,8 +999,6 @@
             </div>
           </div>
         </article>
-
-        <!-- Testimonial 2 -->
         <article class="outer-shell reveal stagger-2" tabindex="0">
           <div class="inner-core p-8 md:p-10">
             <div class="flex items-center gap-1.5 mb-6" aria-label="Note 5 sur 5">
@@ -1003,8 +1016,6 @@
             </div>
           </div>
         </article>
-
-        <!-- Testimonial 3 -->
         <article class="outer-shell reveal stagger-3" tabindex="0">
           <div class="inner-core p-8 md:p-10">
             <div class="flex items-center gap-1.5 mb-6" aria-label="Note 5 sur 5">
@@ -1139,14 +1150,11 @@
       });
     }, { threshold: 0.08, rootMargin: '0px 0px -80px 0px' });
     reveals.forEach(el => io.observe(el));
-
-    // Safety: reveal everything after 3s so fast scrollers never see blank content
     setTimeout(revealAll, 3000);
   } else {
     revealAll();
   }
 
-  // Re-run reveal on pageshow (bfcache / back-forward)
   window.addEventListener('pageshow', (e) => {
     if (e.persisted) revealAll();
   });
@@ -1179,13 +1187,12 @@
   closeBtn.addEventListener('click', toggleMenu);
   mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', toggleMenu));
 
-  // Close on Escape
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menuOpen) toggleMenu();
   });
 
   // ---- Smooth scroll anchors ----
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  document.queryquerSelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const target = document.querySelector(this.getAttribute('href'));
       if (target) {
@@ -1274,16 +1281,8 @@
     }, 4000);
   }
 
-  // ---- Lazy load hero images ----
-  const heroImgs = document.querySelectorAll('#hero img');
-  heroImgs.forEach((img, i) => {
-    img.decoding = i === 2 ? 'async' : 'async';
-    img.loading = i === 2 ? 'eager' : 'lazy';
-    if (i === 2) img.fetchPriority = 'high';
-  });
-
   // ---- Gallery lazy load with fade-in ----
-  const galleryImgs = document.querySelectorAll('.gallery-item img');
+  const galleryImgs = document.querySelectorAll('.photo-frame img');
   if ('IntersectionObserver' in window && !prefersReduced) {
     const imgObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -1301,39 +1300,16 @@
   } else {
     galleryImgs.forEach(img => img.style.opacity = '1');
   }
-
-  // ---- Z-axis cascade hover effect on hero images ----
-  const heroFigures = document.querySelectorAll('#hero figure');
-  const heroContainer = document.querySelector('#hero .relative.h-\\[580px\\]');
-  if (heroContainer && !prefersReduced) {
-    heroContainer.addEventListener('mousemove', (e) => {
-      const rect = heroContainer.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      heroFigures.forEach((fig, i) => {
-        const depth = (i + 1) * 8;
-        fig.style.transform = `rotate(${fig.style.transform.includes('-3deg') ? '-3' : fig.style.transform.includes('1deg') ? '1' : '0'}deg) translate(${x * depth}px, ${y * depth}px)`;
-      });
-    });
-    heroContainer.addEventListener('mouseleave', () => {
-      heroFigures.forEach(fig => {
-        fig.style.transform = fig.style.transform.replace(/translate\([^)]*\)/, '');
-      });
-    });
-  }
 })();
 </script>
 
 <style>
-  /* Additional animations */
   @keyframes bounce-slow {
     0%, 100% { transform: translateX(-50%) translateY(0); }
     50% { transform: translateX(-50%) translateY(8px); }
   }
   .animate-bounce-slow { animation: bounce-slow 2s infinite ease-in-out; }
-
-  /* Gallery image initial state */
-  .gallery-item img { opacity: 1; }
+  .photo-frame img { opacity: 1; }
 </style>
 </body>
 </html>
